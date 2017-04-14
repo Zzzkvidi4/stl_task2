@@ -4,6 +4,63 @@
 #include "stdafx.h"
 
 
+struct SurnameFunctor {
+public:
+	SurnameFunctor(std::string surname) {
+		this->surname = surname;
+	}
+
+	bool operator()(Bill bill) {
+		return bill.getSurname() == surname;
+	}
+private:
+	std::string surname;
+};
+
+struct HouseNumberFunctor {
+public:
+	HouseNumberFunctor(int num) {
+		this->num = num;
+	}
+
+	bool operator()(Bill bill) {
+		return bill.getHouseNumber() == num;
+	}
+private:
+	int num;
+};
+
+struct ApartmentNumberFunctor {
+public:
+	ApartmentNumberFunctor(int num) {
+		this->num = num;
+	}
+
+	bool operator()(Bill bill) {
+		return bill.getApartmentNumber() == num;
+	}
+private:
+	int num;
+};
+
+struct HavePeniFunctor {
+	bool operator()(Bill bill) {
+		return bill.countPeni() > DBL_EPSILON;
+	}
+};
+
+struct DateFunctor {
+public:
+	DateFunctor(Date date) {
+		this->date = date;
+	}
+	bool operator()(Bill bill) {
+		return bill.getDate() == date;
+	}
+private:
+	Date date;
+};
+
 int main()
 {
     ListClass<Bill>* some_test = new ListClass<Bill>();
