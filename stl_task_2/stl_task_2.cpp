@@ -6,6 +6,7 @@
 
 int main()
 {
-    return 0;
+    ListClass<Bill>* some_test = new ListClass<Bill>();
+    
 }
 
