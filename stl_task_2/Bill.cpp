@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Bill.h"
 
-Bill::Bill(std::string street_name, int house_number, int block_number, int appartment_number, std::string surname, std::string date, std::string payment_type, double payment, double peni, int delay_number)
+Bill::Bill(std::string street_name, int house_number, int block_number, int appartment_number, std::string surname, Date date, std::string payment_type, double payment, double peni, int delay_number)
 {
 	this->address.street_name = street_name;
 	this->address.house_number = house_number;
@@ -55,11 +55,9 @@ void Bill::setSurname(std::string surname)
 	}
 }
 
-void Bill::setDate(std::string date)
+void Bill::setDate(Date date)
 {
-	if (date != "") {
-		this->date = date;
-	}
+	this->date = date;
 }
 
 void Bill::setPaymentType(std::string payment_type)
@@ -88,4 +86,33 @@ void Bill::setDelayNumber(int delay_number)
 	if (delay_number >= 0) {
 		this->delay_number = delay_number;
 	}
+}
+
+bool Bill::houseNumberComparator(Bill bill1, Bill bill2)
+{
+	return bill1.address.house_number < bill2.address.house_number;
+}
+
+bool Bill::appartmentNumberComparator(Bill bill1, Bill bill2)
+{
+	return bill1.address.apartment_number < bill2.address.apartment_number;
+}
+
+bool Bill::surnameComparator(Bill bill1, Bill bill2)
+{
+	return bill1.surname < bill2.surname;
+}
+
+bool Bill::dateComparator(Bill bill1, Bill bill2) {
+	return bill1.date < bill2.date;
+}
+
+std::ostream& operator<<(std::ostream & cout, Bill bill)
+{
+	return cout;
+}
+
+std::istream& operator>>(std::istream & cin, Bill bill)
+{
+	return cin;
 }
