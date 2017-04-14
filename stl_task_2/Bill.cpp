@@ -34,6 +34,10 @@ void Bill::setHouseNumber(int house_number)
 	}
 }
 
+int Bill::getHouseNumber() {
+	return address.house_number;
+}
+
 void Bill::setBlockNumber(int block_number)
 {
 	if (block_number != 0) {
@@ -41,11 +45,15 @@ void Bill::setBlockNumber(int block_number)
 	}
 }
 
-void Bill::setAppartmentNumber(int appartment_number)
+void Bill::setApartmentNumber(int appartment_number)
 {
 	if (appartment_number >= 0) {
 		this->address.apartment_number = appartment_number;
 	}
+}
+
+int Bill::getApartmentNumber() {
+	return address.apartment_number;
 }
 
 void Bill::setSurname(std::string surname)
@@ -55,9 +63,17 @@ void Bill::setSurname(std::string surname)
 	}
 }
 
+std::string Bill::getSurname() {
+	return surname;
+}
+
 void Bill::setDate(Date date)
 {
 	this->date = date;
+}
+
+Date Bill::getDate() {
+	return date;
 }
 
 void Bill::setPaymentType(std::string payment_type)
@@ -88,6 +104,10 @@ void Bill::setDelayNumber(int delay_number)
 	}
 }
 
+double Bill::countPeni() {
+	return peni*payment*delay_number;
+}
+
 bool Bill::houseNumberComparator(Bill bill1, Bill bill2)
 {
 	return bill1.address.house_number < bill2.address.house_number;
@@ -105,6 +125,10 @@ bool Bill::surnameComparator(Bill bill1, Bill bill2)
 
 bool Bill::dateComparator(Bill bill1, Bill bill2) {
 	return bill1.date < bill2.date;
+}
+
+bool Bill::peniComparator(Bill bill1, Bill bill2) {
+	return bill1.countPeni() < bill2.countPeni();
 }
 
 std::ostream& operator<<(std::ostream & cout, Bill bill)
