@@ -220,10 +220,61 @@ bool Bill::peniComparator(Bill bill1, Bill bill2) {
 
 std::ostream& operator<<(std::ostream & cout, Bill bill)
 {
+	cout << "Адрес: " << bill.address << std::endl << "Владелец: " << bill.surname << std::endl 
+			<< "Дата: " << bill.date << std::endl << "Тип платежа: " << bill.payment_type << std::endl 
+			<< "Сумма платежа: " << std::to_string(bill.payment) << std::endl << "Пени: " << std::to_string(bill.peni) << std::endl 
+			<< "Дней задолжности: " << bill.delay_number << std::endl << "Долг: " << bill.countPeni();
 	return cout;
 }
 
 std::istream& operator>>(std::istream & cin, Bill bill)
 {
+	std::cout << "Введите адрес" << std::endl;
+	cin >> bill.address;
+	std::string buf;
+	std::cout << "Фамилия владельца:" << std::endl;
+	std::getline(cin, buf);
+	if (buf == "") {
+		throw std::invalid_argument("Фамилия владельца не может быть пустой строкой!");
+	}
+	bill.surname = buf;
+
+	std::cout << "Введите дату платежа" << std::endl;
+	std::getline(cin, buf);
+	cin >> bill.date;
+
+	std::cout << "Введите тип платежа:" << std::endl;
+	std::getline(cin, buf);
+	if (buf == "") {
+		throw std::invalid_argument("Тип платежа не может быть пустой строкой!");
+	}
+	bill.payment_type = buf;
+
+	std::cout << "Введите сумму платежа:" << std::endl;
+	std::getline(cin, buf);
+	try {
+		bill.payment = std::stod(buf);
+	}
+	catch (std::invalid_argument e) {
+		throw std::invalid_argument("Сумма платежа не может быть не числом!");
+	}
+
+	std::cout << "Введите процент пени:" << std::endl;
+	std::getline(cin, buf);
+	try {
+		bill.peni = std::stod(buf);
+	}
+	catch (std::invalid_argument e) {
+		throw std::invalid_argument("Процент пени не может быть не числом!");
+	}
+
+	std::cout << "Введите количество дней задолжности:" << std::endl;
+	std::getline(cin, buf);
+	try {
+		bill.delay_number = std::stoi(buf);
+	}
+	catch (std::invalid_argument e) {
+		throw std::invalid_argument("Количество дней задолжности не может быть не числом!");
+	}
 	return cin;
 }

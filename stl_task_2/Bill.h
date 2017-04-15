@@ -1,5 +1,7 @@
 #pragma once
 #include "stdafx.h"
+#include "Date.h"
+#include "help_utils.h"
 
 
 struct Address {
@@ -53,6 +55,69 @@ struct Address {
 			return false;
 		}
 		return true;
+	}
+
+	friend std::ostream& operator<<(std::ostream& cout, Address adr) {
+		std::string block_str = (adr.block_number == 0) ? "" : ", стр. " + std::to_string(adr.block_number);
+		std::string apartment_str = (adr.apartment_number == 0) ? "" : ", кв. " + std::to_string(adr.apartment_number);
+		cout << adr.street_name << ", д. " << std::to_string(adr.house_number) << block_str << apartment_str;
+		return adr;
+	}
+
+	friend std::istream& operator>>(std::istream& cin, Address adr) {
+		std::string buf;
+		std::cout << "¬ведите навзание улицы:" << std::endl;
+		std::getline(cin, buf);
+		if (buf == "") {
+			throw std::invalid_argument("Ќазвание улицы не может быть пустой строкой!");
+		}
+		adr.street_name = buf;
+
+		std::cout << "¬ведите номер дома:" << std::endl;
+		std::getline(cin, buf);
+		try {
+			adr.house_number = std::stoi(buf);
+			if (adr.house_number < 1) {
+				throw std::out_of_range("Ќомер дома должен быть больше нул€!");
+			}
+		}
+		catch (std::invalid_argument e) {
+			throw std::invalid_argument("Ќомер дома должен быть числом!");
+		}
+
+		std::cout << "¬ведите номер строени€(пуста€ строка дл€ пропуска):" << std::endl;
+		std::getline(cin, buf);
+		if (buf == "") {
+			adr.block_number = 0;
+		} else {
+			try {
+				adr.block_number = std::stoi(buf);
+				if (adr.block_number < 0) {
+					throw std::out_of_range("Ќомер строени€ должен быть больше нул€!");
+				}
+			}
+			catch (std::invalid_argument e) {
+				throw std::invalid_argument("Ќомер строени€ должен быть числом!");
+			}
+		}
+
+		std::cout << "¬ведите номер квартиры(пуста€ строка дл€ пропуска):" << std::endl;
+		std::getline(cin, buf);
+		if (buf == "") {
+			adr.block_number = 0;
+		} else {
+			try {
+				adr.block_number = std::stoi(buf);
+				if (adr.block_number < 0) {
+					throw std::out_of_range("Ќомер квартиры должен быть больше нул€!");
+				}
+			}
+			catch (std::invalid_argument e) {
+				throw std::invalid_argument("Ќомер строени€ должен быть числом!");
+			}
+		}
+
+		return cin;
 	}
 };
 

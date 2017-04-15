@@ -18,23 +18,14 @@ Date::Date(int year, int month, int day) {
 	int max_day;
 	this->year = year;
 	if ((month < 1) || (month > 12)) {
-		throw std::invalid_argument("ћес€ц должен быть между 1 и 13!");
+		throw std::out_of_range("ћес€ц должен быть между 1 и 13!");
 	}
 	this->month = month;
-	if ((month == 1) || (month == 3) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12)) {
-		max_day = 31;
-	} else if (month == 2) {
-		if ((((year % 4) == 0) && ((year % 100) != 0)) || ((year % 400) == 0)) {
-			max_day = 29;
-		} else {
-			max_day = 28;
-		}
-	} else {
-		max_day = 30;
-	}
+
+	max_day = max_day_number(year, month);
 
 	if ((day < 1) || (day > max_day)) {
-		throw std::invalid_argument("ƒень должен быть между 1 и " + std::to_string(max_day) + "!");
+		throw std::out_of_range("ƒень должен быть между 1 и " + std::to_string(max_day) + "!");
 	}
 	this->day = day;
 }
@@ -78,6 +69,20 @@ bool Date::StrToDate(std::string str, Date & date) {
 	return true;
 }
 
+int Date::max_day_number(int year, int month) {
+	if ((month == 1) || (month == 3) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12)) {
+		return 31;
+	} else if (month == 2) {
+		if ((((year % 4) == 0) && ((year % 100) != 0)) || ((year % 400) == 0)) {
+			return 29;
+		} else {
+			return 28;
+		}
+	} else {
+		return 30;
+	}
+}
+
 bool Date::operator<(Date date) {
 	if (year != date.year) {
 		return year < date.year;
@@ -102,4 +107,48 @@ bool Date::operator==(Date date) {
 }
 
 Date::~Date() {
+}
+
+std::ostream& operator<<(std::ostream& cout, Date date) {
+	cout << date.to_string();
+	return cout;
+}
+
+std::istream& operator>>(std::istream& cin, Date date) {
+	std::string buf;
+	std::cout << "¬ведите год:" << std::endl;
+	std::getline(cin, buf);
+	try {
+		date.year = std::stoi(buf);
+	}
+	catch (std::invalid_argument e) {
+		throw std::invalid_argument("√од должен быть числом!");
+	}
+
+	std::cout << "¬ведите мес€ц:" << std::endl;
+	std::getline(cin, buf);
+	try {
+		date.month = std::stoi(buf);
+		if ((date.month < 1) || (date.month > 12)) {
+			throw std::out_of_range("ћес€ц должен быть числом от 1 до 12!");
+		}
+	}
+	catch (std::invalid_argument e) {
+		throw std::invalid_argument("ћес€ц должен быть числом!");
+	}
+
+	std::cout << "ƒень:" << std::endl;
+	std::getline(cin, buf);
+	try {
+		date.day = std::stoi(buf);
+		int max_day = Date::max_day_number(date.year, date.month);
+		if ((date.day < 1) || (date.day > max_day)) {
+			throw std::out_of_range("ƒень должен быть числом от 1 до " + std::to_string(max_day) + "!");
+		}
+	}
+	catch (std::invalid_argument e) {
+		throw std::invalid_argument("ƒень должен быть числом!");
+	}
+
+	return cin;
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include "help_utils.h"
 
 class Date {
 private:
@@ -16,11 +17,17 @@ public:
 
 	static bool StrToDate(std::string str, Date& date);
 
+	static int max_day_number(int year, int month);
+
 	bool operator<(Date date);
 
 	Date& operator=(Date date);
 
 	bool operator==(Date date);
+
+	friend std::ostream& operator<<(std::ostream& cout, Date date);
+
+	friend std::istream& operator>>(std::istream& cin, Date date);
 
 	~Date();
 };
