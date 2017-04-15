@@ -9,6 +9,14 @@
 
 #include <stdio.h>
 #include <tchar.h>
+#include <iostream>
+#include <list>
+#include <algorithm>
+#include <string>
+#include "ListClass.h"
+#include "Bill.h"
+#include "help_utils.h"
+#include "Date.h"
 
 
 
