@@ -10,10 +10,11 @@
 #include <stdio.h>
 #include <tchar.h>
 #include <iostream>
-#include <list>
+#include <vector>
 #include <algorithm>
 #include <string>
-#include "ListClass.h"
+#include <fstream>
+#include "TemplateContainer.h"
 #include "Bill.h"
 #include "help_utils.h"
 #include "Date.h"

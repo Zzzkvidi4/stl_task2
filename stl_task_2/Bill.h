@@ -14,6 +14,19 @@ struct Address {
 		return street_name + '|' + std::to_string(house_number) + '|' + std::to_string(block_number) + '|' + std::to_string(apartment_number);
 	}
 
+	Address() {
+		street_name = "";
+		house_number = 0;
+		block_number = 0;
+		apartment_number = 0;
+	}
+
+	Address(std::string str) {
+		if (!StrToAddress(str, *this)) {
+			throw std::invalid_argument("Ќевозможно преобразовать строку к адресу!");
+		}
+	}
+
 	static bool StrToAddress(std::string str, Address& adr) {
 		int position = str.find('|');
 		if (position == std::string::npos) {
@@ -57,11 +70,16 @@ struct Address {
 		return true;
 	}
 
+	friend std::ofstream& operator<<(std::ofstream& fout, Address adr) {
+		fout << adr.to_string();
+		return fout;
+	}
+
 	friend std::ostream& operator<<(std::ostream& cout, Address adr) {
 		std::string block_str = (adr.block_number == 0) ? "" : ", стр. " + std::to_string(adr.block_number);
 		std::string apartment_str = (adr.apartment_number == 0) ? "" : ", кв. " + std::to_string(adr.apartment_number);
 		cout << adr.street_name << ", д. " << std::to_string(adr.house_number) << block_str << apartment_str;
-		return adr;
+		return cout;
 	}
 
 	friend std::istream& operator>>(std::istream& cin, Address adr) {
@@ -152,6 +170,7 @@ public:
 	void setPeni(double peni);
 	void setDelayNumber(int delay_number);
 	double countPeni();
+	friend std::ofstream& operator<<(std::ofstream& fout, Bill bill);
 	friend std::ostream& operator<<(std::ostream& cout, Bill bill);
 	friend std::istream& operator>>(std::istream& cin, Bill bill);
 	static bool houseNumberComparator(Bill bill1, Bill bill2);

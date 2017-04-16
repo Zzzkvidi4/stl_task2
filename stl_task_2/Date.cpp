@@ -116,7 +116,7 @@ std::ostream& operator<<(std::ostream& cout, Date date) {
 
 std::istream& operator>>(std::istream& cin, Date date) {
 	std::string buf;
-	std::cout << "¬ведите год:" << std::endl;
+	//std::cout << "¬ведите год:" << std::endl;
 	std::getline(cin, buf);
 	try {
 		date.year = std::stoi(buf);
@@ -125,7 +125,7 @@ std::istream& operator>>(std::istream& cin, Date date) {
 		throw std::invalid_argument("√од должен быть числом!");
 	}
 
-	std::cout << "¬ведите мес€ц:" << std::endl;
+	//std::cout << "¬ведите мес€ц:" << std::endl;
 	std::getline(cin, buf);
 	try {
 		date.month = std::stoi(buf);
@@ -137,7 +137,7 @@ std::istream& operator>>(std::istream& cin, Date date) {
 		throw std::invalid_argument("ћес€ц должен быть числом!");
 	}
 
-	std::cout << "ƒень:" << std::endl;
+	//std::cout << "ƒень:" << std::endl;
 	std::getline(cin, buf);
 	try {
 		date.day = std::stoi(buf);

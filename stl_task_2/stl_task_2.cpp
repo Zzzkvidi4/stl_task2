@@ -63,7 +63,11 @@ private:
 
 int main()
 {
-    ListClass<Bill>* some_test = new ListClass<Bill>();
-    
+	setlocale(LC_ALL, "russian");
+	TemplateContainer<int> cont = TemplateContainer<int>();
+	cont.Add(5).Add(19).Add(28);
+	std::cout << cont;
+	system("pause");
+	return 0;
 }
 

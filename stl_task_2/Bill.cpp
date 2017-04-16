@@ -218,6 +218,11 @@ bool Bill::peniComparator(Bill bill1, Bill bill2) {
 	return bill1.countPeni() < bill2.countPeni();
 }
 
+std::ofstream & operator<<(std::ofstream & fout, Bill bill) {
+	fout << bill.to_string();
+	return fout;
+}
+
 std::ostream& operator<<(std::ostream & cout, Bill bill)
 {
 	cout << "јдрес: " << bill.address << std::endl << "¬ладелец: " << bill.surname << std::endl 
@@ -229,28 +234,28 @@ std::ostream& operator<<(std::ostream & cout, Bill bill)
 
 std::istream& operator>>(std::istream & cin, Bill bill)
 {
-	std::cout << "¬ведите адрес" << std::endl;
+	//std::cout << "¬ведите адрес" << std::endl;
 	cin >> bill.address;
 	std::string buf;
-	std::cout << "‘амили€ владельца:" << std::endl;
+	//std::cout << "‘амили€ владельца:" << std::endl;
 	std::getline(cin, buf);
 	if (buf == "") {
 		throw std::invalid_argument("‘амили€ владельца не может быть пустой строкой!");
 	}
 	bill.surname = buf;
 
-	std::cout << "¬ведите дату платежа" << std::endl;
+	//std::cout << "¬ведите дату платежа" << std::endl;
 	std::getline(cin, buf);
 	cin >> bill.date;
 
-	std::cout << "¬ведите тип платежа:" << std::endl;
+	//std::cout << "¬ведите тип платежа:" << std::endl;
 	std::getline(cin, buf);
 	if (buf == "") {
 		throw std::invalid_argument("“ип платежа не может быть пустой строкой!");
 	}
 	bill.payment_type = buf;
 
-	std::cout << "¬ведите сумму платежа:" << std::endl;
+	//std::cout << "¬ведите сумму платежа:" << std::endl;
 	std::getline(cin, buf);
 	try {
 		bill.payment = std::stod(buf);
@@ -259,7 +264,7 @@ std::istream& operator>>(std::istream & cin, Bill bill)
 		throw std::invalid_argument("—умма платежа не может быть не числом!");
 	}
 
-	std::cout << "¬ведите процент пени:" << std::endl;
+	//std::cout << "¬ведите процент пени:" << std::endl;
 	std::getline(cin, buf);
 	try {
 		bill.peni = std::stod(buf);
@@ -268,7 +273,7 @@ std::istream& operator>>(std::istream & cin, Bill bill)
 		throw std::invalid_argument("ѕроцент пени не может быть не числом!");
 	}
 
-	std::cout << "¬ведите количество дней задолжности:" << std::endl;
+	//std::cout << "¬ведите количество дней задолжности:" << std::endl;
 	std::getline(cin, buf);
 	try {
 		bill.delay_number = std::stoi(buf);
