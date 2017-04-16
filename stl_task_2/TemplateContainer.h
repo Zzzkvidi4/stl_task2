@@ -52,14 +52,14 @@ public:
 			for (TemplateContainer<T>::iterator it = iter; it != end(); ++it) {
 				result->Add(*it);
 			}
-			for (TemplateContainer<T>::iterator it = iter - 1; (it != begin()) && (pred(*it); --it) {
+			for (TemplateContainer<T>::iterator it = iter - 1; (it != begin()) && (pred(*it)); --it) {
 				result->Add(*it);
 			}
 		}
 	}
 
 	//бинарный поиск по контейнеру
-	TemplateContainer<T>::iterator& BinarySearch(bool comp, bool pred, T val) {
+	iterator& BinarySearch(bool comp, bool pred, T val) {
 		int left = 0, right = elements.size - 1, middle;
 		if (right == -1) {
 			return end();

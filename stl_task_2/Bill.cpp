@@ -2,30 +2,20 @@
 #include "Bill.h"
 
 Bill::Bill() {
-	address.street_name = "";
-	address.house_number = 0;
-	address.block_number = 0;
-	address.apartment_number = 0;
+	address = Address();
 	date = Date();
 	surname = "";
 	payment_type = "";
 	peni = 0.0;
 	payment = 0.0;
 	delay_number = 0;
+	hasPeni = false;
 }
 
-Bill::Bill(std::string street_name, int house_number, int block_number, int appartment_number, std::string surname, Date date, std::string payment_type, double payment, double peni, int delay_number)
-{
-	this->address.street_name = street_name;
-	this->address.house_number = house_number;
-	this->address.block_number = block_number;
-	this->address.apartment_number = appartment_number;
-	this->surname = surname;
-	this->date = date;
-	this->payment_type = payment_type;
-	this->payment = payment;
-	this->peni = peni;
-	this->delay_number = delay_number;
+Bill::Bill(std::string str) {
+	if (!StrToBill(str, *this)) {
+		throw std::invalid_argument("Ошибка преобразования строки в счет!");
+	}
 }
 
 std::string Bill::to_string()
@@ -107,40 +97,48 @@ bool Bill::StrToBill(std::string str, Bill& bill) {
 	return true;
 }
 
+void Bill::setAddress(Address adr) {
+	address = adr;
+}
+
 void Bill::setStreetName(std::string street_name)
 {
 	if (street_name != "") {
-		this->address.street_name = street_name;
+		this->address.setStreetName(street_name);
 	}
 }
 
-void Bill::setHouseNumber(int house_number)
+void Bill::setHouseNumber(std::string house_number)
 {
-	if (house_number != 0) {
-		this->address.house_number = house_number;
+	if (house_number != "0") {
+		this->address.setHouseNumber(house_number);
 	}
+}
+
+void Bill::setHouseNumber(int num) {
+	address.setHouseNumber(num);
 }
 
 int Bill::getHouseNumber() {
-	return address.house_number;
+	return address.getHouseNumber();
 }
 
-void Bill::setBlockNumber(int block_number)
+void Bill::setBlockNumber(std::string block_number)
 {
-	if (block_number != 0) {
-		this->address.block_number = block_number;
-	}
+	this->address.setBlockNumber(block_number);
 }
 
-void Bill::setApartmentNumber(int appartment_number)
+void Bill::setApartmentNumber(std::string appartment_number)
 {
-	if (appartment_number >= 0) {
-		this->address.apartment_number = appartment_number;
-	}
+	this->address.setApartmentNumber(appartment_number);
+}
+
+void Bill::setApartmentNumber(int num) {
+	address.setApartmentNumber(num);
 }
 
 int Bill::getApartmentNumber() {
-	return address.apartment_number;
+	return address.getApartmentNumber();
 }
 
 void Bill::setSurname(std::string surname)
@@ -191,18 +189,22 @@ void Bill::setDelayNumber(int delay_number)
 	}
 }
 
+void Bill::setHasPeni(bool val) {
+	hasPeni = val;
+}
+
 double Bill::countPeni() {
 	return peni*payment*delay_number;
 }
 
 bool Bill::houseNumberComparator(Bill bill1, Bill bill2)
 {
-	return bill1.address.house_number < bill2.address.house_number;
+	return bill1.address.getHouseNumber() < bill2.address.getHouseNumber();
 }
 
 bool Bill::appartmentNumberComparator(Bill bill1, Bill bill2)
 {
-	return bill1.address.apartment_number < bill2.address.apartment_number;
+	return bill1.address.getApartmentNumber() < bill2.address.getApartmentNumber();
 }
 
 bool Bill::surnameComparator(Bill bill1, Bill bill2)
@@ -218,11 +220,6 @@ bool Bill::peniComparator(Bill bill1, Bill bill2) {
 	return bill1.countPeni() < bill2.countPeni();
 }
 
-std::ofstream & operator<<(std::ofstream & fout, Bill bill) {
-	fout << bill.to_string();
-	return fout;
-}
-
 std::ostream& operator<<(std::ostream & cout, Bill bill)
 {
 	cout << "Адрес: " << bill.address << std::endl << "Владелец: " << bill.surname << std::endl 
@@ -232,31 +229,57 @@ std::ostream& operator<<(std::ostream & cout, Bill bill)
 	return cout;
 }
 
-std::istream& operator>>(std::istream & cin, Bill bill)
+std::istream& operator>>(std::istream & cin, Bill &bill)
 {
-	//std::cout << "Введите адрес" << std::endl;
-	cin >> bill.address;
 	std::string buf;
-	//std::cout << "Фамилия владельца:" << std::endl;
 	std::getline(cin, buf);
+	int position = buf.find(':');
+	if (position == std::string::npos) {
+		throw std::invalid_argument("Ввод некорректен!");
+	}
+	buf = buf.substr(position + 2);
+	if (!Address::StrToAddress(buf, bill.address)) {
+		throw std::invalid_argument("Невозможно преобразовать строку к адресу!");
+	}
+
+	std::getline(cin, buf);
+	position = buf.find(':');
+	if (position == std::string::npos) {
+		throw std::invalid_argument("Ввод некорректен!");
+	}
+	buf = buf.substr(position + 2);
 	if (buf == "") {
 		throw std::invalid_argument("Фамилия владельца не может быть пустой строкой!");
 	}
 	bill.surname = buf;
 
-	//std::cout << "Введите дату платежа" << std::endl;
 	std::getline(cin, buf);
-	cin >> bill.date;
+	position = buf.find(':');
+	if (position == std::string::npos) {
+		throw std::invalid_argument("Ввод некорректен!");
+	}
+	buf = buf.substr(position + 2);
+	if (!Date::StrToDate(buf, bill.date)) {
+		throw std::invalid_argument("Невозможно преобразовать строку к дате!");
+	}
 
-	//std::cout << "Введите тип платежа:" << std::endl;
 	std::getline(cin, buf);
+	position = buf.find(':');
+	if (position == std::string::npos) {
+		throw std::invalid_argument("Ввод некорректен!");
+	}
+	buf = buf.substr(position + 2);
 	if (buf == "") {
 		throw std::invalid_argument("Тип платежа не может быть пустой строкой!");
 	}
 	bill.payment_type = buf;
 
-	//std::cout << "Введите сумму платежа:" << std::endl;
 	std::getline(cin, buf);
+	position = buf.find(':');
+	if (position == std::string::npos) {
+		throw std::invalid_argument("Ввод некорректен!");
+	}
+	buf = buf.substr(position + 2);
 	try {
 		bill.payment = std::stod(buf);
 	}
@@ -264,8 +287,12 @@ std::istream& operator>>(std::istream & cin, Bill bill)
 		throw std::invalid_argument("Сумма платежа не может быть не числом!");
 	}
 
-	//std::cout << "Введите процент пени:" << std::endl;
 	std::getline(cin, buf);
+	position = buf.find(':');
+	if (position == std::string::npos) {
+		throw std::invalid_argument("Ввод некорректен!");
+	}
+	buf = buf.substr(position + 2);
 	try {
 		bill.peni = std::stod(buf);
 	}
@@ -273,13 +300,18 @@ std::istream& operator>>(std::istream & cin, Bill bill)
 		throw std::invalid_argument("Процент пени не может быть не числом!");
 	}
 
-	//std::cout << "Введите количество дней задолжности:" << std::endl;
 	std::getline(cin, buf);
+	position = buf.find(':');
+	if (position == std::string::npos) {
+		throw std::invalid_argument("Ввод некорректен!");
+	}
+	buf = buf.substr(position + 2);
 	try {
 		bill.delay_number = std::stoi(buf);
 	}
 	catch (std::invalid_argument e) {
 		throw std::invalid_argument("Количество дней задолжности не может быть не числом!");
 	}
+	bill.hasPeni = bill.delay_number > 0;
 	return cin;
 }

@@ -25,9 +25,11 @@ public:
 
 	bool operator==(Date date);
 
+	friend std::ofstream& operator<<(std::ofstream& fout, Date date);
+
 	friend std::ostream& operator<<(std::ostream& cout, Date date);
 
-	friend std::istream& operator>>(std::istream& cin, Date date);
+	friend std::istream& operator>>(std::istream& cin, Date& date);
 
 	~Date();
 };
