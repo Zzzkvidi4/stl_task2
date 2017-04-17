@@ -365,6 +365,19 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	catch (std::invalid_argument e) {
 		throw std::invalid_argument("Êîëè÷åñòâî äíåé çàäîëæíîñòè íå ìîæåò áûòü íå ÷èñëîì!");
 	}
+
+	std::getline(cin, buf);
+	position = buf.find(':');
+	if (position == std::string::npos) {
+		throw std::invalid_argument("Ââîä íåêîğğåêòåí!");
+	}
+	buf = buf.substr(position + 2);
+	try {
+		bill.peni_payment = std::stod(buf);
+	}
+	catch (std::invalid_argument e) {
+		throw std::invalid_argument("Ñóììà ïåíè íå ìîæåò áûòü íå ÷èñëîì!");
+	}
 	bill.hasPeni = bill.delay_number > 0;
 	return cin;
 }

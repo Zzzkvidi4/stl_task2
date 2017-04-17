@@ -35,7 +35,7 @@ public:
 	//удаление по индексу
 	TemplateContainer<T>& Erase(int index) {
 		if (index >= elements.size()) {
-			throw std::out_of_range("Индекс находится вне диапазона!")
+			throw std::out_of_range("Индекс находится вне диапазона!");
 		}
 		elements.erase(elements.begin() + index - 1);
 		return *this;
@@ -83,11 +83,11 @@ public:
 		return end();
 	}
 
-	iterator& operator[](int index) {
-		if ((index > size) || (index < 1)) {
+	T& operator[](int index) {
+		if ((index > size()) || (index < 1)) {
 			throw std::out_of_range("Индекс вне диапазона!");
 		}
-		return begin() + index - 1;
+		return elements[index - 1];
 	}
 
 	//сортировка по критерию
@@ -135,9 +135,10 @@ public:
 				Add(buf);
 			}
 			catch (std::exception e) {
-				throw std::invalid_argument(e.what());
+				result = false;
 			}
 		}
+		return result;
 	}
 
 	~TemplateContainer() {

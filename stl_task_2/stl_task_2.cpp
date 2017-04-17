@@ -124,123 +124,123 @@ void print_change_record_menu() {
 	std::cout << "0. Назад." << std::endl;
 }
 
-void create_changes(TemplateContainer<Bill>::iterator& iter, int choice) {
+void create_changes(Bill& bill, int choice) {
 	std::string str;
 	try {
 		switch (choice) {
 		case 1: {
-			std::cout << "Текущее значение: " << iter->getStreetName() << std::endl;
+			std::cout << "Текущее значение: " << bill.getStreetName() << std::endl;
 			std::cout << "Введите новую улицу (пустая строка - отмена):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
-				iter->setStreetName(str);
+				bill.setStreetName(str);
 			}
 			break;
 		}
 		case 2: {
-			std::cout << "Текущее значение: " << iter->getHouseNumber() << std::endl;
+			std::cout << "Текущее значение: " << bill.getHouseNumber() << std::endl;
 			std::cout << "Введите новый номер дома (пустая строка - отмена):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
-				iter->setHouseNumber(str);
+				bill.setHouseNumber(str);
 			}
 			break;
 		}
 		case 3: {
-			std::cout << "Текущее значение: " << iter->getBlockNumber() << std::endl;
+			std::cout << "Текущее значение: " << bill.getBlockNumber() << std::endl;
 			std::cout << "Введите новый номер строения (пустая строка - отмена, 0 - нет номера строения):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
 				if (str != "0") {
-					iter->setBlockNumber(str);
+					bill.setBlockNumber(str);
 				} else {
-					iter->setBlockNumber("");
+					bill.setBlockNumber("");
 				}
 			}
 			break;
 		}
 		case 4: {
-			std::cout << "Текущее значение: " << iter->getApartmentNumber() << std::endl;
+			std::cout << "Текущее значение: " << bill.getApartmentNumber() << std::endl;
 			std::cout << "Введите новый номер квартиры (пустая строка - отмена, 0 - нет номера квартиры):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
 				if (str != "0") {
-					iter->setApartmentNumber(str);
+					bill.setApartmentNumber(str);
 				} else {
-					iter->setApartmentNumber("");
+					bill.setApartmentNumber("");
 				}
 			}
 			break;
 		}
 		case 5: {
-			std::cout << "Текущее значение: " << iter->getSurname() << std::endl;
+			std::cout << "Текущее значение: " << bill.getSurname() << std::endl;
 			std::cout << "Введите новую фамилию владельца (пустая строка - отмена):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
-				iter->setSurname(str);
+				bill.setSurname(str);
 			}
 			break;
 		}
 		case 6: {
-			std::cout << "Текущее значение: " << iter->getDate().getYear() << std::endl;
+			std::cout << "Текущее значение: " << bill.getDate().getYear() << std::endl;
 			std::cout << "Введите новый год (пустая строка - отмена):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
-				iter->getDate().setYear(str);
+				bill.getDate().setYear(str);
 			}
 			break;
 		}
 		case 7: {
-			std::cout << "Текущее значение: " << iter->getDate().getMonth() << std::endl;
+			std::cout << "Текущее значение: " << bill.getDate().getMonth() << std::endl;
 			std::cout << "Введите новый месяц (пустая строка - отмена):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
-				iter->getDate().setMonth(str);
+				bill.getDate().setMonth(str);
 			}
 			break;
 		}
 		case 8: {
-			std::cout << "Текущее значение: " << iter->getDate().getDay() << std::endl;
+			std::cout << "Текущее значение: " << bill.getDate().getDay() << std::endl;
 			std::cout << "Введите новый день (пустая строка - отмена):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
-				iter->getDate().setDay(str);
+				bill.getDate().setDay(str);
 			}
 			break;
 		}
 		case 9: {
-			std::cout << "Текущее значение: " << iter->getPayment() << std::endl;
+			std::cout << "Текущее значение: " << bill.getPayment() << std::endl;
 			std::cout << "Введите новую сумму платежа (пустая строка - отмена):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
-				iter->setPayment(str);
+				bill.setPayment(str);
 			}
 			break;
 		}
 		case 10: {
-			std::cout << "Текущее значение: " << iter->getPaymentType() << std::endl;
+			std::cout << "Текущее значение: " << bill.getPaymentType() << std::endl;
 			std::cout << "Введите новый тип платежа (пустая строка - отмена):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
-				iter->setPaymentType(str);
+				bill.setPaymentType(str);
 			}
 			break;
 		}
 		case 11: {
-			std::cout << "Текущее значение: " << iter->getPeni() << std::endl;
+			std::cout << "Текущее значение: " << bill.getPeni() << std::endl;
 			std::cout << "Введите новый процент пени (пустая строка - отмена):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
-				iter->setPeni(str);
+				bill.setPeni(str);
 			}
 			break;
 		}
 		case 12: {
-			std::cout << "Текущее значение: " << iter->getDelayNumber() << std::endl;
+			std::cout << "Текущее значение: " << bill.getDelayNumber() << std::endl;
 			std::cout << "Введите новую сумму платежа (пустая строка - отмена):" << std::endl;
 			std::getline(std::cin, str);
 			if (str != "") {
-				iter->setDelayNumber(str);
+				bill.setDelayNumber(str);
 			}
 			break;
 		}
@@ -260,7 +260,7 @@ void change_record_action(TemplateContainer<Bill>& cont) {
 	getChoice(1, cont.size(), num);
 	int choice = -1;
 	while (choice != 0) {
-		std::cout << *(cont[num]) << std::endl;
+		std::cout << cont[num] << std::endl;
 		print_change_record_menu();
 		getChoice(0, 12, choice);
 		if (choice != 0) {
@@ -381,14 +381,11 @@ void remove_record_action(TemplateContainer<Bill>& cont) {
 int main()
 {
 	setlocale(LC_ALL, "russian");
-	TemplateContainer<int> cont = TemplateContainer<int>();
+	TemplateContainer<Bill> cont = TemplateContainer<Bill>();
 	Bill bill = Bill();
-	std::ifstream fout("some.txt");
-	fout >> bill;
-	std::cout << bill;
-	fout.close();
-	cont.Add(5).Add(19).Add(28);
+	cont.read_from_file("some.txt");
 	std::cout << cont;
+	cont[1].setStreetName("aaa");
 	system("pause");
 	return 0;
 }

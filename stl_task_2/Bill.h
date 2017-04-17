@@ -171,6 +171,7 @@ private:
 	double payment;
 	double peni;
 	int delay_number;
+	double peni_payment;
 	bool hasPeni;
 public:
 	Bill();
