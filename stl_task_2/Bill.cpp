@@ -108,6 +108,10 @@ void Bill::setStreetName(std::string street_name)
 	}
 }
 
+std::string Bill::getStreetName() {
+	return address.getStreetName();
+}
+
 void Bill::setHouseNumber(std::string house_number)
 {
 	if (house_number != "0") {
@@ -128,6 +132,10 @@ void Bill::setBlockNumber(std::string block_number)
 	this->address.setBlockNumber(block_number);
 }
 
+int Bill::getBlockNumber() {
+	return address.getBlockNumber();
+}
+
 void Bill::setApartmentNumber(std::string appartment_number)
 {
 	this->address.setApartmentNumber(appartment_number);
@@ -143,9 +151,10 @@ int Bill::getApartmentNumber() {
 
 void Bill::setSurname(std::string surname)
 {
-	if (surname != "") {
-		this->surname = surname;
+	if (surname == "") {
+		throw std::invalid_argument("Фамилия владельца не может быть пустой!");
 	}
+	this->surname = surname;
 }
 
 std::string Bill::getSurname() {
@@ -157,21 +166,31 @@ void Bill::setDate(Date date)
 	this->date = date;
 }
 
-Date Bill::getDate() {
+Date& Bill::getDate() {
 	return date;
 }
 
 void Bill::setPaymentType(std::string payment_type)
 {
-	if (payment_type != "") {
-		this->payment_type = payment_type;
+	if (payment_type == "") {
+		throw std::invalid_argument("Тип платежа не может быть пустой строкой!");
 	}
+	this->payment_type = payment_type;
 }
 
 void Bill::setPayment(double payment)
 {
 	if (payment != 0) {
 		this->payment = payment;
+	}
+}
+
+void Bill::setPayment(std::string str) {
+	try {
+		this->payment = std::stod(str);
+	}
+	catch (std::exception e) {
+		throw std::invalid_argument("Сумма платежа не может быть не числом!");
 	}
 }
 
@@ -182,10 +201,28 @@ void Bill::setPeni(double peni)
 	}
 }
 
+void Bill::setPeni(std::string str) {
+	try {
+		this->peni = std::stod(str);
+	}
+	catch (std::exception e) {
+		throw std::invalid_argument("Пени не может быть не числом!");
+	}
+}
+
 void Bill::setDelayNumber(int delay_number)
 {
 	if (delay_number >= 0) {
 		this->delay_number = delay_number;
+	}
+}
+
+void Bill::setDelayNumber(std::string str) {
+	try {
+		this->delay_number = std::stoi(str);
+	}
+	catch (std::exception e) {
+		throw std::invalid_argument("Количество дней просрочки не может быть не числом!");
 	}
 }
 

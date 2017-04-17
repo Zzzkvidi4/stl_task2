@@ -21,6 +21,11 @@ public:
 		elements = std::vector<T>();
 	};
 
+	//размер контейнера
+	int size() {
+		return elements.size();
+	}
+
 	//вставка в конец
 	TemplateContainer<T>& Add(T elem) {
 		elements.push_back(elem);
@@ -78,6 +83,13 @@ public:
 		return end();
 	}
 
+	iterator& operator[](int index) {
+		if ((index > size) || (index < 1)) {
+			throw std::out_of_range("Индекс вне диапазона!");
+		}
+		return begin() + index - 1;
+	}
+
 	//сортировка по критерию
 	void SortElemsBy(bool comp) {
 		std::sort(elements.begin(), elements.end(), comp);
@@ -112,15 +124,15 @@ public:
 	bool read_from_file(std::string file_name) {
 		std::ifstream fin(file_name);
 		if (!fin.is_open()) {
-			throw std::invalid_argument("Не удалось открыть файл для чтения!")
+			throw std::invalid_argument("Не удалось открыть файл для чтения!");
 		}
 
-		std::string buf;
+		T buf;
 		bool result = true;
 		while (!fin.eof()) {
-			std::getline(fin, buf);
 			try {
-				Add(T(buf));
+				fin >> buf;
+				Add(buf);
 			}
 			catch (std::exception e) {
 				throw std::invalid_argument(e.what());

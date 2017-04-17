@@ -106,13 +106,65 @@ bool Date::operator==(Date date) {
 	return (year == date.year) && (month == date.month) && (day == date.day);
 }
 
+
 Date::~Date() {
 }
 
-std::ofstream & operator<<(std::ofstream & fout, Date date) {
-	// TODO: insert return statement here
-	fout << date;
-	return fout;
+void Date::setYear(std::string buf) {
+	try {
+		year = std::stoi(buf);
+		if (year < 1) {
+			throw std::invalid_argument("√од не может быть меньше 1!");
+		}
+		if (day > max_day_number(year, month)) {
+			day = 1;
+		}
+	}
+	catch (std::invalid_argument e) {
+		throw std::invalid_argument("√од должен быть числом!");
+	}
+}
+
+int Date::getYear() {
+	return year;
+}
+
+void Date::setMonth(std::string buf) {
+	try {
+		month = std::stoi(buf);
+		if ((month < 1) || (month > 12)) {
+			throw std::invalid_argument("ћес€ц не может быть меньше 1 или больше 12!");
+		}
+		if (day > max_day_number(year, month)) {
+			day = 1;
+		}
+	}
+	catch (std::invalid_argument e) {
+		throw std::invalid_argument("ћес€ц должен быть числом!");
+	}
+}
+
+int Date::getMonth() {
+	return month;
+}
+
+void Date::setDay(std::string buf) {
+	try {
+		day = std::stoi(buf);
+		if (day > max_day_number(year, month)) {
+			day = 1;
+		}
+		if ((day < 1) || (day > max_day_number(year, month))) {
+			throw std::invalid_argument("ƒень не может быть меньше 1 или больше " + std::to_string(max_day_number(year, month)) + "!");
+		}
+	}
+	catch (std::invalid_argument e) {
+		throw std::invalid_argument("ћес€ц должен быть числом!");
+	}
+}
+
+int Date::getDay() {
+	return day;
 }
 
 std::ostream& operator<<(std::ostream& cout, Date date) {
@@ -124,12 +176,6 @@ std::istream& operator>>(std::istream& cin, Date& date) {
 	std::string buf;
 	std::cout << "¬ведите год:" << std::endl;
 	std::getline(cin, buf);
-	try {
-		date.year = std::stoi(buf);
-	}
-	catch (std::invalid_argument e) {
-		throw std::invalid_argument("√од должен быть числом!");
-	}
 
 	std::cout << "¬ведите мес€ц:" << std::endl;
 	std::getline(cin, buf);

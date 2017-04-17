@@ -25,7 +25,17 @@ public:
 
 	bool operator==(Date date);
 
-	friend std::ofstream& operator<<(std::ofstream& fout, Date date);
+	void setYear(std::string buf);
+
+	int getYear();
+
+	void setMonth(std::string buf);
+
+	int getMonth();
+
+	void setDay(std::string buf);
+
+	int getDay();
 
 	friend std::ostream& operator<<(std::ostream& cout, Date date);
 
