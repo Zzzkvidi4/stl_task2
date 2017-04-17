@@ -178,11 +178,13 @@ void Bill::setPaymentType(std::string payment_type)
 	this->payment_type = payment_type;
 }
 
+std::string Bill::getPaymentType() {
+	return payment_type;
+}
+
 void Bill::setPayment(double payment)
 {
-	if (payment != 0) {
-		this->payment = payment;
-	}
+	this->payment = payment;
 }
 
 void Bill::setPayment(std::string str) {
@@ -192,6 +194,10 @@ void Bill::setPayment(std::string str) {
 	catch (std::exception e) {
 		throw std::invalid_argument("Сумма платежа не может быть не числом!");
 	}
+}
+
+double Bill::getPayment() {
+	return payment;
 }
 
 void Bill::setPeni(double peni)
@@ -210,20 +216,30 @@ void Bill::setPeni(std::string str) {
 	}
 }
 
+double Bill::getPeni() {
+	return peni;
+}
+
 void Bill::setDelayNumber(int delay_number)
 {
 	if (delay_number >= 0) {
 		this->delay_number = delay_number;
+		hasPeni = delay_number > 0;
 	}
 }
 
 void Bill::setDelayNumber(std::string str) {
 	try {
 		this->delay_number = std::stoi(str);
+		hasPeni = delay_number > 0;
 	}
 	catch (std::exception e) {
 		throw std::invalid_argument("Количество дней просрочки не может быть не числом!");
 	}
+}
+
+int Bill::getDelayNumber() {
+	return delay_number;
 }
 
 void Bill::setHasPeni(bool val) {

@@ -193,12 +193,16 @@ public:
 	void setDate(Date date);
 	Date& getDate();
 	void setPaymentType(std::string payment_type);
+	std::string getPaymentType();
 	void setPayment(double payment);
 	void setPayment(std::string str);
+	double getPayment();
 	void setPeni(double peni);
 	void setPeni(std::string str);
+	double getPeni();
 	void setDelayNumber(int delay_number);
 	void setDelayNumber(std::string str);
+	int getDelayNumber();
 	void setHasPeni(bool val);
 	double countPeni();
 	friend std::ostream& operator<<(std::ostream& cout, Bill bill);
