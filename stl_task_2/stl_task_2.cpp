@@ -3,25 +3,18 @@
 
 #include "stdafx.h"
 
-
 struct SurnameFunctor {
-public:
-	SurnameFunctor(std::string surname) {
-		if (surname == "") {
-			throw std::invalid_argument("Фамилия не может быть пустой!");
-		}
-		this->surname = surname;
-	}
+	SurnameFunctor(std::string surname):surname(surname) {}
 
 	bool operator()(Bill bill) {
 		return bill.getSurname() == surname;
 	}
 
-	Bill constructValue() {
+	/*Bill constructValue() {
 		Bill* bill = new Bill();
 		bill->setSurname(surname);
 		return *bill;
-	}
+	}*/
 private:
 	std::string surname;
 };
@@ -378,14 +371,26 @@ void remove_record_action(TemplateContainer<Bill>& cont) {
 	cont.Erase(num);
 }
 
+bool func(Bill bill) {
+	return true;
+}
+
 int main()
 {
 	setlocale(LC_ALL, "russian");
 	TemplateContainer<Bill> cont = TemplateContainer<Bill>();
 	Bill bill = Bill();
 	cont.read_from_file("some.txt");
-	std::cout << cont;
-	cont[1].setStreetName("aaa");
+	std::cout << cont << std::endl;
+	TemplateContainer<Bill> cont2 = cont.GetElemsIf(SurnameFunctor("hhh"));
+	cont.SortElemsBy(Bill::surnameComparator);
+	std::cout << "Отсортированное" << std::endl << cont << std::endl << "Бинарный поиск" << std::endl;
+	std::string str = "hhh";
+	//std::vector<Bill> buf = std::vector<Bill>();
+	//SurnameFunctor func2 =  SurnameFunctor("hhh"); //[](Bill i) {return i.getSurname() == "hhh"; }
+	//TemplateContainer<Bill> cont2 = cont.GetElemsIf(SurnameFunctor("hhh"));
+	//std::copy_if(cont.Elems().begin(), cont.Elems().end(), cont2.Elems().begin(), SurnameFunctor("hhh"));
+	std::cout << cont2 << std::endl;
 	system("pause");
 	return 0;
 }

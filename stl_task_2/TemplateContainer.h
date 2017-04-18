@@ -21,6 +21,10 @@ public:
 		elements = std::vector<T>();
 	};
 
+	std::vector<T>& Elems() {
+		return elements;
+	}
+
 	//размер контейнера
 	int size() {
 		return elements.size();
@@ -42,45 +46,56 @@ public:
 	}
 
 	//выборка элементов по критерию
-	TemplateContainer<T>& GetElemsIf(bool pred) {
+	template<typename Pred>
+	TemplateContainer<T>& GetElemsIf(Pred func) {
 		TemplateContainer<T>* result = new TemplateContainer<T>();
-		std::copy_if(elements.cbegin(), elements.cend, result->elements.begin(), pred);
+		for (auto it = elements.begin(); it != elements.end(); ++it) {
+			if (func(*it)) {
+				result->Add(*it);
+			}
+		}
 		return *result;
 	}
 
 	//выборка элементов по критерию с предварительной сортировкой
-	TemplateContainer<T>& GetElemsIfBinary(bool comp, bool pred, T val) {
+	template<typename Pred>
+	TemplateContainer<T>& GetElemsIfBinary(bool comp(T,T), Pred pred, T val) {
 		TemplateContainer<T>* result = new TemplateContainer<T>();
 		SortElemsBy(comp);
-		TemplateContainer<T>::iterator iter = BinarySearch(comp, pred, val);
-		if (iter != end()) {
-			for (TemplateContainer<T>::iterator it = iter; it != end(); ++it) {
+		int start = BinarySearch(comp, pred, val);
+		if (start != -1) {
+			for (TemplateContainer<T>::iterator it = begin() + start; (it != end()) && (pred(*it)); ++it) {
 				result->Add(*it);
 			}
-			for (TemplateContainer<T>::iterator it = iter - 1; (it != begin()) && (pred(*it)); --it) {
+			for (TemplateContainer<T>::iterator it = begin() + start - 1; (it != begin()) && (pred(*it)); --it) {
 				result->Add(*it);
 			}
 		}
+		return *result;
 	}
 
 	//бинарный поиск по контейнеру
-	iterator& BinarySearch(bool comp, bool pred, T val) {
-		int left = 0, right = elements.size - 1, middle;
+	template<typename Pred>
+	int BinarySearch(bool comp(T, T), Pred pred, T val) {
+		int left = 0, right = elements.size() - 1, middle;
 		if (right == -1) {
-			return end();
+			return -1;
 		}
 		while (left < right) {
 			middle = left + (right - left) / 2;
-			if (comp(elements[middle], val)) {
-				right = middle + 1;
+			if (pred(elements[middle])) {
+				return middle;
+			}
+			if (comp(elements[middle], val) || pred(elements[middle])) {
+				right = middle;
 			} else {
-				left = middle;
+				left = middle + 1;
 			}
 		}
-		if (pred(right)) {
-			return begin() + right;
+		if (pred(elements[right])) {
+			return right;
 		}
-		return end();
+		return -1;
 	}
 
 	T& operator[](int index) {
@@ -91,7 +106,7 @@ public:
 	}
 
 	//сортировка по критерию
-	void SortElemsBy(bool comp) {
+	void SortElemsBy(bool comp(T, T)) {
 		std::sort(elements.begin(), elements.end(), comp);
 	}
 
