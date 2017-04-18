@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <string>
 #include <fstream>
-#include <functional>
+#include <iterator>
 #include "TemplateContainer.h"
 #include "Bill.h"
 #include "help_utils.h"

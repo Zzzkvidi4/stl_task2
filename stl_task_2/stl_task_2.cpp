@@ -10,11 +10,11 @@ struct SurnameFunctor {
 		return bill.getSurname() == surname;
 	}
 
-	/*Bill constructValue() {
+	Bill constructValue() {
 		Bill* bill = new Bill();
 		bill->setSurname(surname);
 		return *bill;
-	}*/
+	}
 private:
 	std::string surname;
 };
@@ -382,7 +382,9 @@ int main()
 	Bill bill = Bill();
 	cont.read_from_file("some.txt");
 	std::cout << cont << std::endl;
-	TemplateContainer<Bill> cont2 = cont.GetElemsIf(SurnameFunctor("hhh"));
+	SurnameFunctor func = SurnameFunctor("hhh");
+	TemplateContainer<Bill> cont2 = cont.GetElemsIfBinary(Bill::surnameComparator, func, func.constructValue());
+	//TemplateContainer<Bill> cont2 = cont.GetElemsIf(func);
 	cont.SortElemsBy(Bill::surnameComparator);
 	std::cout << "Отсортированное" << std::endl << cont << std::endl << "Бинарный поиск" << std::endl;
 	std::string str = "hhh";

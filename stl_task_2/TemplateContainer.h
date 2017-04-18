@@ -49,11 +49,7 @@ public:
 	template<typename Pred>
 	TemplateContainer<T>& GetElemsIf(Pred func) {
 		TemplateContainer<T>* result = new TemplateContainer<T>();
-		for (auto it = elements.begin(); it != elements.end(); ++it) {
-			if (func(*it)) {
-				result->Add(*it);
-			}
-		}
+		std::copy_if(elements.begin(), elements.end(), std::back_inserter(result->elements), func);
 		return *result;
 	}
 
@@ -86,8 +82,8 @@ public:
 			if (pred(elements[middle])) {
 				return middle;
 			}
-			if (comp(elements[middle], val) || pred(elements[middle])) {
-				right = middle;
+			if (comp(val, elements[middle])) {
+				right = middle - 1;
 			} else {
 				left = middle + 1;
 			}
