@@ -54,3 +54,13 @@ void getIntGreater(int min, int & value) {
 		}
 	}
 }
+
+bool input_query(std::string query) {
+	std::cout << query << std::endl;
+	std::string str;
+	std::getline(std::cin, str);
+	if ((str.length() > 0) && ((str[0] == 'Y') || (str[0] == 'y'))) {
+		return true;
+	}
+	return false;
+}

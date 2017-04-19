@@ -8,3 +8,5 @@ void getChoice(int min, int max, int& choice_number);
 
 //функция получения чисел больше min
 void getIntGreater(int min, int& value);
+
+bool input_query(std::string str);

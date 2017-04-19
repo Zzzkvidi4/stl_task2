@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include <Windows.h>
 
 struct SurnameFunctor {
 	SurnameFunctor(std::string surname):surname(surname) {}
@@ -58,15 +59,19 @@ private:
 };
 
 struct HavePeniFunctor {
+	HavePeniFunctor(bool val) : hasPeni(val) {};
+
 	bool operator()(Bill bill) {
 		return bill.countPeni() > DBL_EPSILON;
 	}
 
 	Bill constructValue() {
 		Bill* bill = new Bill();
-		bill->setHasPeni(true);
+		bill->setHasPeni(hasPeni);
 		return *bill;
 	}
+private:
+	bool hasPeni;
 };
 
 struct DateFunctor {
@@ -97,6 +102,12 @@ void print_main_menu(TemplateContainer<Bill>& cont) {
 	std::cout << "4. Добавление записи." << std::endl;
 	std::cout << "5. Удаление записи." << std::endl;
 	std::cout << "6. Редактирование записи." << std::endl;
+	std::cout << "7. Выборка записей по критериям." << std::endl;
+	std::cout << "8. Выборка записей по критериям(бинарный поиск)." << std::endl;
+	std::cout << "0. Выход." << std::endl;
+	if (cont.size() == 0) {
+		std::cout << "Список счетов пуст. Некоторые действия недоступны." << std::endl;
+	}
 }
 
 void print_change_record_menu() {
@@ -302,62 +313,64 @@ void print_container_action(TemplateContainer<Bill> cont) {
 }
 
 void add_record_action(TemplateContainer<Bill>& cont) {
-	Bill bill = Bill();
-	try {
-		std::string str;
+	if (input_query("Ввести запись? (Y/N) (N):")) {
+		Bill bill = Bill();
+		try {
+			std::string str;
 
-		std::cout << "Введите улицу:" << std::endl;
-		std::getline(std::cin, str);
-		bill.setStreetName(str);
+			std::cout << "Введите улицу:" << std::endl;
+			std::getline(std::cin, str);
+			bill.setStreetName(str);
 
-		std::cout << "Введите номер дома:" << std::endl;
-		std::getline(std::cin, str);
-		bill.setHouseNumber(str);
+			std::cout << "Введите номер дома:" << std::endl;
+			std::getline(std::cin, str);
+			bill.setHouseNumber(str);
 
-		std::cout << "Введите номер строения (пустая строка для пропуска):" << std::endl;
-		std::getline(std::cin, str);
-		bill.setBlockNumber(str);
+			std::cout << "Введите номер строения (пустая строка для пропуска):" << std::endl;
+			std::getline(std::cin, str);
+			bill.setBlockNumber(str);
 
-		std::cout << "Введите номер квартиры (пустая строка для пропуска):" << std::endl;
-		std::getline(std::cin, str);
-		bill.setApartmentNumber(str);
+			std::cout << "Введите номер квартиры (пустая строка для пропуска):" << std::endl;
+			std::getline(std::cin, str);
+			bill.setApartmentNumber(str);
 
-		std::cout << "Введите год платежа:" << std::endl;
-		std::getline(std::cin, str);
-		bill.getDate().setYear(str);
+			std::cout << "Введите год платежа:" << std::endl;
+			std::getline(std::cin, str);
+			bill.getDate().setYear(str);
 
-		std::cout << "Введите месяц платежа:" << std::endl;
-		std::getline(std::cin, str);
-		bill.getDate().setMonth(str);
+			std::cout << "Введите месяц платежа:" << std::endl;
+			std::getline(std::cin, str);
+			bill.getDate().setMonth(str);
 
-		std::cout << "Введите день платежа:" << std::endl;
-		std::getline(std::cin, str);
-		bill.getDate().setDay(str);
+			std::cout << "Введите день платежа:" << std::endl;
+			std::getline(std::cin, str);
+			bill.getDate().setDay(str);
 
-		std::cout << "Введите фамилию владельца:" << std::endl;
-		std::getline(std::cin, str);
-		bill.setSurname(str);
+			std::cout << "Введите фамилию владельца:" << std::endl;
+			std::getline(std::cin, str);
+			bill.setSurname(str);
 
-		std::cout << "Введите тип платежа:" << std::endl;
-		std::getline(std::cin, str);
-		bill.setPaymentType(str);
+			std::cout << "Введите тип платежа:" << std::endl;
+			std::getline(std::cin, str);
+			bill.setPaymentType(str);
 
-		std::cout << "Введите сумму платежа:" << std::endl;
-		std::getline(std::cin, str);
-		bill.setPayment(str);
+			std::cout << "Введите сумму платежа:" << std::endl;
+			std::getline(std::cin, str);
+			bill.setPayment(str);
 
-		std::cout << "Введите процент пени:" << std::endl;
-		std::getline(std::cin, str);
-		bill.setPeni(str);
+			std::cout << "Введите процент пени:" << std::endl;
+			std::getline(std::cin, str);
+			bill.setPeni(str);
 
-		std::cout << "Введите количество дней просрочки:" << std::endl;
-		std::getline(std::cin, str);
-		bill.setDelayNumber(str);
+			std::cout << "Введите количество дней просрочки:" << std::endl;
+			std::getline(std::cin, str);
+			bill.setDelayNumber(str);
+		}
+		catch (std::exception e) {
+			print_message(e.what());
+		}
+		cont.Add(bill);
 	}
-	catch (std::exception e) {
-		print_message(e.what());
-	}
-	cont.Add(bill);
 }
 
 void remove_record_action(TemplateContainer<Bill>& cont) {
@@ -365,35 +378,446 @@ void remove_record_action(TemplateContainer<Bill>& cont) {
 		print_message("Список счетов пуст!");
 		return;
 	}
-	std::cout << "Введите позицию для удаления:" << std::endl;
+	std::cout << "Введите позицию для удаления (0 - отмена):" << std::endl;
 	int num;
-	getChoice(1, cont.size(), num);
-	cont.Erase(num);
+	getChoice(0, cont.size(), num);
+	if (num != 0) {
+		cont.Erase(num);
+	}
 }
 
-bool func(Bill bill) {
-	return true;
+#pragma region select_functions_region
+
+void select_records_by_surname(TemplateContainer<Bill> cont) {
+	if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
+		std::cout << "Введите фамилию владельца (пустая строка - отмена):" << std::endl;
+		std::string str;
+		std::getline(std::cin, str);
+		if (str != "") {
+			SurnameFunctor func = SurnameFunctor(str);
+			TemplateContainer<Bill> result = cont.GetElemsIf(func);
+			std::cout << result << std::endl;
+			bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
+			if (is_saving) {
+				std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
+				std::getline(std::cin, str);
+				if (str != "") {
+					try {
+						result.print_to_file(str);
+					}
+					catch (std::exception e) {
+						print_message(e.what());
+					}
+				}
+			}
+		}
+	}
+}
+
+void select_records_by_surname_binary(TemplateContainer<Bill> cont) {
+	if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
+		std::cout << "Введите фамилию владельца (пустая строка - отмена):" << std::endl;
+		std::string str;
+		std::getline(std::cin, str);
+		if (str != "") {
+			SurnameFunctor func = SurnameFunctor(str);
+			TemplateContainer<Bill> result = cont.GetElemsIfBinary(Bill::surnameComparator, func, func.constructValue());
+			std::cout << result << std::endl;
+			bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
+			if (is_saving) {
+				std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
+				std::getline(std::cin, str);
+				if (str != "") {
+					try {
+						result.print_to_file(str);
+					}
+					catch (std::exception e) {
+						print_message(e.what());
+					}
+				}
+			}
+		}
+	}
+}
+
+void select_records_by_apartment_number(TemplateContainer<Bill> cont) {
+	if (input_query("Ввести номер квартиры? (Y/N) (N):")) {
+		std::cout << "Введите номер квартиры (пустая строка - отмена, 0 - нет номера квартиры):" << std::endl;
+		std::string str;
+		std::getline(std::cin, str);
+		if (str != "") {
+			try {
+				int num = std::stoi(str);
+				ApartmentNumberFunctor func = ApartmentNumberFunctor(num);
+				TemplateContainer<Bill> result = cont.GetElemsIf(func);
+				std::cout << result << std::endl;
+				bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
+				if (is_saving) {
+					std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
+					std::getline(std::cin, str);
+					if (str != "") {
+						try {
+							result.print_to_file(str);
+						}
+						catch (std::exception e) {
+							print_message(e.what());
+						}
+					}
+				}
+			}
+			catch (std::invalid_argument e) {
+				print_message("Номер квартиры должен быть числом!");
+			}
+		}
+	}
+}
+
+void select_records_by_apartment_number_binary(TemplateContainer<Bill> cont) {
+	if (input_query("Ввести номер квартиры? (Y/N) (N):")) {
+		std::cout << "Введите номер квартиры (пустая строка - отмена, 0 - нет номера квартиры):" << std::endl;
+		std::string str;
+		std::getline(std::cin, str);
+		if (str != "") {
+			try {
+				int num = std::stoi(str);
+				ApartmentNumberFunctor func = ApartmentNumberFunctor(num);
+				TemplateContainer<Bill> result = cont.GetElemsIfBinary(Bill::appartmentNumberComparator, func, func.constructValue());
+				std::cout << result << std::endl;
+				bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
+				if (is_saving) {
+					std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
+					std::getline(std::cin, str);
+					if (str != "") {
+						try {
+							result.print_to_file(str);
+						}
+						catch (std::exception e) {
+							print_message(e.what());
+						}
+					}
+				}
+			}
+			catch (std::invalid_argument e) {
+				print_message("Номер квартиры должен быть числом!");
+			}
+		}
+	}
+}
+
+void select_records_by_house_number(TemplateContainer<Bill> cont) {
+	if (input_query("Ввести номер дома? (Y/N) (N):")) {
+		std::string str;
+		std::getline(std::cin, str);
+		if (str != "") {
+			try {
+				int num = std::stoi(str);
+				HouseNumberFunctor func = HouseNumberFunctor(num);
+				TemplateContainer<Bill> result = cont.GetElemsIf(func);
+				std::cout << result << std::endl;
+				bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
+				if (is_saving) {
+					std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
+					std::getline(std::cin, str);
+					if (str != "") {
+						try {
+							result.print_to_file(str);
+						}
+						catch (std::exception e) {
+							print_message(e.what());
+						}
+					}
+				}
+			}
+			catch (std::invalid_argument e) {
+				print_message("Номер дома должен быть числом!");
+			}
+		}
+	}
+}
+
+void select_records_by_house_number_binary(TemplateContainer<Bill> cont) {
+	if (input_query("Ввести номер дома? (Y/N) (N):")) {
+		std::string str;
+		std::getline(std::cin, str);
+		if (str != "") {
+			try {
+				int num = std::stoi(str);
+				HouseNumberFunctor func = HouseNumberFunctor(num);
+				TemplateContainer<Bill> result = cont.GetElemsIfBinary(Bill::houseNumberComparator, func, func.constructValue());
+				std::cout << result << std::endl;
+				bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
+				if (is_saving) {
+					std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
+					std::getline(std::cin, str);
+					if (str != "") {
+						try {
+							result.print_to_file(str);
+						}
+						catch (std::exception e) {
+							print_message(e.what());
+						}
+					}
+				}
+			}
+			catch (std::invalid_argument e) {
+				print_message("Номер дома должен быть числом!");
+			}
+		}
+	}
+}
+
+void select_records_by_date(TemplateContainer<Bill> cont) {
+	if (input_query("Ввести дату? (Y/N) (N):")) {
+		Date date = Date();
+		try {
+			std::cin >> date;
+			DateFunctor func = DateFunctor(date);
+			TemplateContainer<Bill> result = cont.GetElemsIf(func);
+			std::cout << result << std::endl;
+			bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
+			if (is_saving) {
+				std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
+				std::string str;
+				std::getline(std::cin, str);
+				if (str != "") {
+					try {
+						result.print_to_file(str);
+					}
+					catch (std::exception e) {
+						print_message(e.what());
+					}
+				}
+			}
+		}
+		catch (std::exception e) {
+			print_message(e.what());
+		}
+	}
+}
+
+void select_records_by_date_binary(TemplateContainer<Bill> cont) {
+	if (input_query("Ввести дату? (Y/N) (N):")) {
+		Date date = Date();
+		try {
+			std::cin >> date;
+			DateFunctor func = DateFunctor(date);
+			TemplateContainer<Bill> result = cont.GetElemsIfBinary(Bill::dateComparator, func, func.constructValue());
+			std::cout << result << std::endl;
+			bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
+			if (is_saving) {
+				std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
+				std::string str;
+				std::getline(std::cin, str);
+				if (str != "") {
+					try {
+						result.print_to_file(str);
+					}
+					catch (std::exception e) {
+						print_message(e.what());
+					}
+				}
+			}
+		}
+		catch (std::exception e) {
+			print_message(e.what());
+		}
+	}
+}
+
+void select_records_by_having_peni(TemplateContainer<Bill> cont) {
+	std::string str;
+	HavePeniFunctor func = HavePeniFunctor(input_query("Выборка счетов с долгом? (Y/N) (N):"));
+	TemplateContainer<Bill> result = cont.GetElemsIf(func);
+	std::cout << result << std::endl;
+	bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
+	if (is_saving) {
+		std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
+		std::getline(std::cin, str);
+		if (str != "") {
+			try {
+				result.print_to_file(str);
+			}
+			catch (std::exception e) {
+				print_message(e.what());
+			}
+		}
+	}
+}
+
+void select_records_by_having_peni_binary(TemplateContainer<Bill> cont) {
+	std::string str;
+	HavePeniFunctor func = HavePeniFunctor(input_query("Выборка счетов с долгом? (Y/N) (N):"));
+	TemplateContainer<Bill> result = cont.GetElemsIfBinary(Bill::peniComparator, func, func.constructValue());
+	std::cout << result << std::endl;
+	bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
+	if (is_saving) {
+		std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
+		std::getline(std::cin, str);
+		if (str != "") {
+			try {
+				result.print_to_file(str);
+			}
+			catch (std::exception e) {
+				print_message(e.what());
+			}
+		}
+	}
+}
+
+void print_select_records_menu() {
+	system("cls");
+	std::cout << "Выберите один из пунктов меню выборок:" << std::endl;
+	std::cout << "1. По фамилии." << std::endl;
+	std::cout << "2. По номеру квартиры." << std::endl;
+	std::cout << "3. По дате." << std::endl;
+	std::cout << "4. По номеру дома." << std::endl;
+	std::cout << "5. По наличии задолжности." << std::endl;
+	std::cout << "0. Назад." << std::endl;
+}
+
+void create_select(TemplateContainer<Bill> cont, int choice) {
+	switch (choice) {
+	case 1: {
+		select_records_by_surname(cont);
+		break;
+	}
+	case 2: {
+		select_records_by_house_number(cont);
+		break;
+	}
+	case 3: {
+		select_records_by_date(cont);
+		break;
+	}
+	case 4: {
+		select_records_by_house_number(cont);
+		break;
+	}
+	case 5: {
+		select_records_by_having_peni(cont);
+		break;
+	}
+	default: {
+		break;
+	}
+	}
+}
+
+void select_records_action(TemplateContainer<Bill> cont) {
+	int choice = -1;
+	while (choice != 0) {
+		print_select_records_menu();
+		getChoice(0, 5, choice);
+		if (choice != 0) {
+			create_select(cont, choice);
+		}
+	}
+}
+
+void create_select_binary(TemplateContainer<Bill> cont, int choice) {
+	switch (choice) {
+	case 1: {
+		select_records_by_surname_binary(cont);
+		break;
+	}
+	case 2: {
+		select_records_by_house_number_binary(cont);
+		break;
+	}
+	case 3: {
+		select_records_by_date_binary(cont);
+		break;
+	}
+	case 4: {
+		select_records_by_house_number_binary(cont);
+		break;
+	}
+	case 5: {
+		select_records_by_having_peni_binary(cont);
+		break;
+	}
+	default: {
+		break;
+	}
+	}
+}
+
+void select_records_binary_action(TemplateContainer<Bill> cont) {
+	int choice = -1;
+	while (choice != 0) {
+		print_select_records_menu();
+		getChoice(0, 5, choice);
+		if (choice != 0) {
+			create_select_binary(cont, choice);
+		}
+	}
+}
+
+
+#pragma endregion
+
+void create_action(TemplateContainer<Bill>& cont, int choice) {
+	switch (choice) {
+	case 1: {
+		fill_from_file_action(cont);
+		break;
+	}
+	case 2: {
+		if (cont.size() != 0) {
+			fill_file_from_cont_action(cont);
+		}
+		break;
+	}
+	case 3: {
+		print_container_action(cont);
+		break;
+	}
+	case 4: {
+		add_record_action(cont);
+		break;
+	}
+	case 5: {
+		if (cont.size() != 0) {
+			remove_record_action(cont);
+		}
+		break;
+	}
+	case 6: {
+		if (cont.size() != 0) {
+			change_record_action(cont);
+		}
+		break;
+	}
+	case 7: {
+		if (cont.size() != 0) {
+			select_records_action(cont);
+		}
+		break;
+	}
+	case 8: {
+		if (cont.size() != 0) {
+			select_records_binary_action(cont);
+		}
+		break;
+	}
+	default: {
+		break;
+	}
+	}
 }
 
 int main()
 {
 	setlocale(LC_ALL, "russian");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 	TemplateContainer<Bill> cont = TemplateContainer<Bill>();
-	Bill bill = Bill();
-	cont.read_from_file("some.txt");
-	std::cout << cont << std::endl;
-	SurnameFunctor func = SurnameFunctor("hhh");
-	TemplateContainer<Bill> cont2 = cont.GetElemsIfBinary(Bill::surnameComparator, func, func.constructValue());
-	//TemplateContainer<Bill> cont2 = cont.GetElemsIf(func);
-	cont.SortElemsBy(Bill::surnameComparator);
-	std::cout << "Отсортированное" << std::endl << cont << std::endl << "Бинарный поиск" << std::endl;
-	std::string str = "hhh";
-	//std::vector<Bill> buf = std::vector<Bill>();
-	//SurnameFunctor func2 =  SurnameFunctor("hhh"); //[](Bill i) {return i.getSurname() == "hhh"; }
-	//TemplateContainer<Bill> cont2 = cont.GetElemsIf(SurnameFunctor("hhh"));
-	//std::copy_if(cont.Elems().begin(), cont.Elems().end(), cont2.Elems().begin(), SurnameFunctor("hhh"));
-	std::cout << cont2 << std::endl;
-	system("pause");
+	int choice = -1;
+	while (choice != 0) {
+		print_main_menu(cont);
+		getChoice(0, 8, choice);
+		create_action(cont, choice);
+	}
 	return 0;
 }
 

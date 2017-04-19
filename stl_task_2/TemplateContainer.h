@@ -108,8 +108,15 @@ public:
 
 	//вывод
 	friend std::ostream& operator<<(std::ostream& cout, TemplateContainer<T> cont) {
+		if (cont.size() == 0) {
+			cout << "Записи не обнаружены!" << std::endl;
+			return cout;
+		}
 		int i = 1;
 		for (TemplateContainer<T>::iterator iter = cont.begin(); iter != cont.end(); ++iter, ++i) {
+			if (iter != cont.begin()) {
+				cout << std::endl;
+			}
 			cout << "Запись № " << std::to_string(i) << std::endl << *iter << std::endl;
 		}
 		return cout;
