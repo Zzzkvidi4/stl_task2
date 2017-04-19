@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Bill.h"
 
+//конструктор по умолчанию
 Bill::Bill() {
 	address = Address();
 	date = Date();
@@ -12,18 +13,21 @@ Bill::Bill() {
 	hasPeni = false;
 }
 
+//конструктор из строки
 Bill::Bill(std::string str) {
 	if (!StrToBill(str, *this)) {
 		throw std::invalid_argument("Ошибка преобразования строки в счет!");
 	}
 }
 
+//преобразование в строку
 std::string Bill::to_string()
 {
 	return address.to_string() + '`' + surname + '`' + date.to_string() + '`' + payment_type + '`' + 
 			std::to_string(payment) + '`' + std::to_string(peni) + '`' + std::to_string(delay_number);
 }
 
+//преобразование из строки
 bool Bill::StrToBill(std::string str, Bill& bill) {
 	bool res = true;
 	int position = str.find('`');
@@ -97,10 +101,12 @@ bool Bill::StrToBill(std::string str, Bill& bill) {
 	return true;
 }
 
+//сеттеры для адреса
 void Bill::setAddress(Address adr) {
 	address = adr;
 }
 
+//сеттеры и геттеры для улицы
 void Bill::setStreetName(std::string street_name)
 {
 	if (street_name != "") {
@@ -112,6 +118,7 @@ std::string Bill::getStreetName() {
 	return address.getStreetName();
 }
 
+//сеттеры и геттеры для номера дома
 void Bill::setHouseNumber(std::string house_number)
 {
 	if (house_number != "0") {
@@ -127,6 +134,7 @@ int Bill::getHouseNumber() {
 	return address.getHouseNumber();
 }
 
+//сеттеры и геттеры номера строения
 void Bill::setBlockNumber(std::string block_number)
 {
 	this->address.setBlockNumber(block_number);
@@ -136,6 +144,7 @@ int Bill::getBlockNumber() {
 	return address.getBlockNumber();
 }
 
+//сеттеры и геттеры для номера квартиры
 void Bill::setApartmentNumber(std::string appartment_number)
 {
 	this->address.setApartmentNumber(appartment_number);
@@ -149,6 +158,7 @@ int Bill::getApartmentNumber() {
 	return address.getApartmentNumber();
 }
 
+//сеттеры и геттеры для фамилии
 void Bill::setSurname(std::string surname)
 {
 	if (surname == "") {
@@ -161,6 +171,7 @@ std::string Bill::getSurname() {
 	return surname;
 }
 
+//сеттеры и геттеры для даты
 void Bill::setDate(Date date)
 {
 	this->date = date;
@@ -170,6 +181,7 @@ Date& Bill::getDate() {
 	return date;
 }
 
+//сеттеры и геттеры для типа оплаты
 void Bill::setPaymentType(std::string payment_type)
 {
 	if (payment_type == "") {
@@ -182,6 +194,7 @@ std::string Bill::getPaymentType() {
 	return payment_type;
 }
 
+//сеттеры и геттеры для суммы оплаты
 void Bill::setPayment(double payment)
 {
 	this->payment = payment;
@@ -200,6 +213,7 @@ double Bill::getPayment() {
 	return payment;
 }
 
+//сеттеры и геттеры для процента пени
 void Bill::setPeni(double peni)
 {
 	if (peni > DBL_EPSILON) {
@@ -220,6 +234,7 @@ double Bill::getPeni() {
 	return peni;
 }
 
+//сеттеры и геттеры для количества дней просрочки
 void Bill::setDelayNumber(int delay_number)
 {
 	if (delay_number >= 0) {
@@ -246,10 +261,12 @@ void Bill::setHasPeni(bool val) {
 	hasPeni = val;
 }
 
+//подсчет пени
 double Bill::countPeni() {
 	return peni*payment*delay_number;
 }
 
+//компараторы по полям
 bool Bill::houseNumberComparator(Bill bill1, Bill bill2)
 {
 	return bill1.address.getHouseNumber() < bill2.address.getHouseNumber();
@@ -273,6 +290,7 @@ bool Bill::peniComparator(Bill bill1, Bill bill2) {
 	return bill1.countPeni() < bill2.countPeni();
 }
 
+//операции ввода/вывода
 std::ostream& operator<<(std::ostream & cout, Bill bill)
 {
 	cout << "Адрес: " << bill.address << std::endl << "Владелец: " << bill.surname << std::endl 

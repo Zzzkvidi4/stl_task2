@@ -8,11 +8,11 @@ private:
 public:
 	typedef typename std::vector<T>::iterator iterator;
 
-	iterator begin() { // 2nd: add typename
+	iterator begin() {
 		return elements.begin();
 	}
 
-	iterator end() { // 3rd: add typename
+	iterator end() {
 		return elements.end();
 	}
 

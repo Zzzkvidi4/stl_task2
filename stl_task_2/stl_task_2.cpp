@@ -93,6 +93,7 @@ private:
 	Date date;
 };
 
+//основное меню
 void print_main_menu(TemplateContainer<Bill>& cont) {
 	system("cls");
 	std::cout << "Выберите один из пунктов меню:" << std::endl;
@@ -110,8 +111,8 @@ void print_main_menu(TemplateContainer<Bill>& cont) {
 	}
 }
 
+//меню изменения
 void print_change_record_menu() {
-	system("cls");
 	std::cout << "Выберите один из пунктов меню редактирования:" << std::endl;
 	std::cout << "1. Улица." << std::endl;
 	std::cout << "2. Номер дома." << std::endl;
@@ -128,6 +129,7 @@ void print_change_record_menu() {
 	std::cout << "0. Назад." << std::endl;
 }
 
+//выполнение изменения
 void create_changes(Bill& bill, int choice) {
 	std::string str;
 	try {
@@ -258,6 +260,7 @@ void create_changes(Bill& bill, int choice) {
 	}
 }
 
+//действие изменения записи
 void change_record_action(TemplateContainer<Bill>& cont) {
 	std::cout << "Введите позицию для редактирования:" << std::endl;
 	int num;
@@ -270,9 +273,11 @@ void change_record_action(TemplateContainer<Bill>& cont) {
 		if (choice != 0) {
 			create_changes(cont[num], choice);
 		}
+		system("cls");
 	}
 }
 
+//действие заполнения из файла
 void fill_from_file_action(TemplateContainer<Bill>& cont) {
 	std::cout << "Введите имя файла (пустая строка для отмены):" << std::endl;
 	std::string file_name;
@@ -289,6 +294,7 @@ void fill_from_file_action(TemplateContainer<Bill>& cont) {
 	}
 }
 
+//действие заполнения файла из контейнера
 void fill_file_from_cont_action(TemplateContainer<Bill> cont) {
 	std::cout << "Введите имя файла (пустая строка для отмены):" << std::endl;
 	std::string file_name;
@@ -303,6 +309,7 @@ void fill_file_from_cont_action(TemplateContainer<Bill> cont) {
 	}
 }
 
+//действие печати контейнера
 void print_container_action(TemplateContainer<Bill> cont) {
 	if (cont.size() == 0){
 		print_message("Список счетов пуст!");
@@ -312,6 +319,7 @@ void print_container_action(TemplateContainer<Bill> cont) {
 	}
 }
 
+//действие добавления записи
 void add_record_action(TemplateContainer<Bill>& cont) {
 	if (input_query("Ввести запись? (Y/N) (N):")) {
 		Bill bill = Bill();
@@ -373,6 +381,7 @@ void add_record_action(TemplateContainer<Bill>& cont) {
 	}
 }
 
+//действие удаления записи
 void remove_record_action(TemplateContainer<Bill>& cont) {
 	if (cont.size() == 0) {
 		print_message("Список счетов пуст!");
@@ -388,6 +397,7 @@ void remove_record_action(TemplateContainer<Bill>& cont) {
 
 #pragma region select_functions_region
 
+//выборка по фамилии
 void select_records_by_surname(TemplateContainer<Bill> cont) {
 	if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
 		std::cout << "Введите фамилию владельца (пустая строка - отмена):" << std::endl;
@@ -414,6 +424,7 @@ void select_records_by_surname(TemplateContainer<Bill> cont) {
 	}
 }
 
+//выборка во фамилии бинарная
 void select_records_by_surname_binary(TemplateContainer<Bill> cont) {
 	if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
 		std::cout << "Введите фамилию владельца (пустая строка - отмена):" << std::endl;
@@ -440,6 +451,7 @@ void select_records_by_surname_binary(TemplateContainer<Bill> cont) {
 	}
 }
 
+//выборка по номеру квартиры
 void select_records_by_apartment_number(TemplateContainer<Bill> cont) {
 	if (input_query("Ввести номер квартиры? (Y/N) (N):")) {
 		std::cout << "Введите номер квартиры (пустая строка - отмена, 0 - нет номера квартиры):" << std::endl;
@@ -472,6 +484,7 @@ void select_records_by_apartment_number(TemplateContainer<Bill> cont) {
 	}
 }
 
+//выборка по номеру квартиры бинарная
 void select_records_by_apartment_number_binary(TemplateContainer<Bill> cont) {
 	if (input_query("Ввести номер квартиры? (Y/N) (N):")) {
 		std::cout << "Введите номер квартиры (пустая строка - отмена, 0 - нет номера квартиры):" << std::endl;
@@ -504,6 +517,7 @@ void select_records_by_apartment_number_binary(TemplateContainer<Bill> cont) {
 	}
 }
 
+//выборка по номеру дома
 void select_records_by_house_number(TemplateContainer<Bill> cont) {
 	if (input_query("Ввести номер дома? (Y/N) (N):")) {
 		std::string str;
@@ -535,6 +549,7 @@ void select_records_by_house_number(TemplateContainer<Bill> cont) {
 	}
 }
 
+//выборка по номеру дома бинарная
 void select_records_by_house_number_binary(TemplateContainer<Bill> cont) {
 	if (input_query("Ввести номер дома? (Y/N) (N):")) {
 		std::string str;
@@ -566,6 +581,7 @@ void select_records_by_house_number_binary(TemplateContainer<Bill> cont) {
 	}
 }
 
+//выборка по дате
 void select_records_by_date(TemplateContainer<Bill> cont) {
 	if (input_query("Ввести дату? (Y/N) (N):")) {
 		Date date = Date();
@@ -595,6 +611,7 @@ void select_records_by_date(TemplateContainer<Bill> cont) {
 	}
 }
 
+//выборка по дате бинарная
 void select_records_by_date_binary(TemplateContainer<Bill> cont) {
 	if (input_query("Ввести дату? (Y/N) (N):")) {
 		Date date = Date();
@@ -624,6 +641,7 @@ void select_records_by_date_binary(TemplateContainer<Bill> cont) {
 	}
 }
 
+//выборка по наличию пени
 void select_records_by_having_peni(TemplateContainer<Bill> cont) {
 	std::string str;
 	HavePeniFunctor func = HavePeniFunctor(input_query("Выборка счетов с долгом? (Y/N) (N):"));
@@ -644,6 +662,7 @@ void select_records_by_having_peni(TemplateContainer<Bill> cont) {
 	}
 }
 
+//выборка по наличию пени бинарная
 void select_records_by_having_peni_binary(TemplateContainer<Bill> cont) {
 	std::string str;
 	HavePeniFunctor func = HavePeniFunctor(input_query("Выборка счетов с долгом? (Y/N) (N):"));
@@ -664,6 +683,7 @@ void select_records_by_having_peni_binary(TemplateContainer<Bill> cont) {
 	}
 }
 
+//меню выборок
 void print_select_records_menu() {
 	system("cls");
 	std::cout << "Выберите один из пунктов меню выборок:" << std::endl;
@@ -675,6 +695,7 @@ void print_select_records_menu() {
 	std::cout << "0. Назад." << std::endl;
 }
 
+//совершение выборки
 void create_select(TemplateContainer<Bill> cont, int choice) {
 	switch (choice) {
 	case 1: {
@@ -703,6 +724,7 @@ void create_select(TemplateContainer<Bill> cont, int choice) {
 	}
 }
 
+//действие выборки
 void select_records_action(TemplateContainer<Bill> cont) {
 	int choice = -1;
 	while (choice != 0) {
@@ -714,6 +736,7 @@ void select_records_action(TemplateContainer<Bill> cont) {
 	}
 }
 
+//совершение выборки бинарной
 void create_select_binary(TemplateContainer<Bill> cont, int choice) {
 	switch (choice) {
 	case 1: {
@@ -742,6 +765,7 @@ void create_select_binary(TemplateContainer<Bill> cont, int choice) {
 	}
 }
 
+//действие выборки бинарной
 void select_records_binary_action(TemplateContainer<Bill> cont) {
 	int choice = -1;
 	while (choice != 0) {
@@ -756,6 +780,7 @@ void select_records_binary_action(TemplateContainer<Bill> cont) {
 
 #pragma endregion
 
+//основная программа
 void create_action(TemplateContainer<Bill>& cont, int choice) {
 	switch (choice) {
 	case 1: {
