@@ -45,6 +45,10 @@ public:
 		return *this;
 	}
 
+	void clear() {
+		elements.clear();
+	}
+
 	//выборка элементов по критерию
 	template<typename Pred>
 	TemplateContainer<T>& GetElemsIf(Pred func) {
@@ -113,11 +117,14 @@ public:
 			return cout;
 		}
 		int i = 1;
+		std::ostream_iterator<T> cout_it(cout, "\r\n");
 		for (TemplateContainer<T>::iterator iter = cont.begin(); iter != cont.end(); ++iter, ++i) {
-			if (iter != cont.begin()) {
+			/*if (iter != cont.begin()) {
 				cout << std::endl;
 			}
-			cout << "Запись № " << std::to_string(i) << std::endl << *iter << std::endl;
+			cout << "Запись № " << std::to_string(i) << std::endl << *iter << std::endl;*/
+			cout << "\r\nЗапись № " << std::to_string(i) << std::endl;
+			*cout_it++ = *iter;
 		}
 		return cout;
 	}
@@ -128,12 +135,13 @@ public:
 		if (!fout.is_open()) {
 			throw std::invalid_argument("Не удалось открыть файл на запись!");
 		}
-
+		std::ostream_iterator<T> out(fout, "\r\n");
 		for (TemplateContainer<T>::iterator iter = elements.begin(); iter != elements.end(); ++iter) {
-			if (iter != elements.begin()) {
+			/*if (iter != elements.begin()) {
 				fout << std::endl;
-			}
-			fout << *iter;
+			}*/
+			/*fout << *iter;*/
+			*out++ = *iter;
 		}
 		fout.close();
 	}
@@ -145,17 +153,19 @@ public:
 			throw std::invalid_argument("Не удалось открыть файл для чтения!");
 		}
 
+		std::istream_iterator<T> in(fin);
 		T buf;
 		bool result = true;
 		while (!fin.eof()) {
 			try {
-				fin >> buf;
+				buf = *in++;
 				Add(buf);
 			}
 			catch (std::exception e) {
 				result = false;
 			}
 		}
+		Add(*in);
 		return result;
 	}
 
