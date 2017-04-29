@@ -66,6 +66,10 @@ bool Date::StrToDate(std::string str, Date & date) {
 	catch (std::exception e) {
 		return false;
 	}
+
+    if ((date.month < 1) || (date.month > 12) || (date.year < 0) || (date.day > max_day_number(date.year, date.month))) {
+        return false;
+    }
 	return true;
 }
 
@@ -111,18 +115,20 @@ Date::~Date() {
 }
 
 void Date::setYear(std::string buf) {
+    int tmp = year;
 	try {
 		year = std::stoi(buf);
-		if (year < 1) {
-			throw std::invalid_argument("√од не может быть меньше 1!");
-		}
-		if (day > max_day_number(year, month)) {
-			day = 1;
-		}
 	}
 	catch (std::invalid_argument e) {
 		throw std::invalid_argument("√од должен быть числом!");
 	}
+    if (day > max_day_number(year, month)) {
+        day = 1;
+    }
+    if (year < 1) {
+        year = tmp;
+        throw std::invalid_argument("√од не может быть меньше 1!");
+    }
 }
 
 int Date::getYear() {
@@ -130,18 +136,20 @@ int Date::getYear() {
 }
 
 void Date::setMonth(std::string buf) {
+    int tmp = month;
 	try {
 		month = std::stoi(buf);
-		if ((month < 1) || (month > 12)) {
-			throw std::invalid_argument("ћес€ц не может быть меньше 1 или больше 12!");
-		}
-		if (day > max_day_number(year, month)) {
-			day = 1;
-		}
 	}
 	catch (std::invalid_argument e) {
 		throw std::invalid_argument("ћес€ц должен быть числом!");
 	}
+    if (day > max_day_number(year, month)) {
+        day = 1;
+    }
+    if ((month < 1) || (month > 12)) {
+        month = tmp;
+        throw std::invalid_argument("ћес€ц не может быть меньше 1 или больше 12!");
+    }
 }
 
 int Date::getMonth() {
@@ -149,18 +157,17 @@ int Date::getMonth() {
 }
 
 void Date::setDay(std::string buf) {
+    int tmp = day;
 	try {
 		day = std::stoi(buf);
-		if (day > max_day_number(year, month)) {
-			day = 1;
-		}
-		if ((day < 1) || (day > max_day_number(year, month))) {
-			throw std::invalid_argument("ƒень не может быть меньше 1 или больше " + std::to_string(max_day_number(year, month)) + "!");
-		}
 	}
 	catch (std::invalid_argument e) {
-		throw std::invalid_argument("ћес€ц должен быть числом!");
+		throw std::invalid_argument("ƒень должен быть числом!");
 	}
+    if ((day < 1) || (day > max_day_number(year, month))) {
+        day = tmp;
+        throw std::invalid_argument("ƒень не может быть меньше 1 или больше " + std::to_string(max_day_number(year, month)) + "!");
+    }
 }
 
 int Date::getDay() {

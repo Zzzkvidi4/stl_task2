@@ -119,10 +119,6 @@ public:
 		int i = 1;
 		std::ostream_iterator<T> cout_it(cout, "\r\n");
 		for (TemplateContainer<T>::iterator iter = cont.begin(); iter != cont.end(); ++iter, ++i) {
-			/*if (iter != cont.begin()) {
-				cout << std::endl;
-			}
-			cout << "Запись № " << std::to_string(i) << std::endl << *iter << std::endl;*/
 			cout << "\r\nЗапись № " << std::to_string(i) << std::endl;
 			*cout_it++ = *iter;
 		}
@@ -137,10 +133,6 @@ public:
 		}
 		std::ostream_iterator<T> out(fout, "\r\n");
 		for (TemplateContainer<T>::iterator iter = elements.begin(); iter != elements.end(); ++iter) {
-			/*if (iter != elements.begin()) {
-				fout << std::endl;
-			}*/
-			/*fout << *iter;*/
 			*out++ = *iter;
 		}
 		fout.close();
@@ -156,16 +148,23 @@ public:
 		std::istream_iterator<T> in(fin);
 		T buf;
 		bool result = true;
+        bool is_correct = true;
 		while (!fin.eof()) {
 			try {
-				buf = *in++;
-				Add(buf);
+                if (is_correct) {
+                    Add(*in);
+                }
+                is_correct = true;
+                in++;
 			}
 			catch (std::exception e) {
 				result = false;
+                is_correct = false;
 			}
 		}
-		Add(*in);
+        if (is_correct) {
+            Add(*in);
+        }
 		return result;
 	}
 
