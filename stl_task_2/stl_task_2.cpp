@@ -302,7 +302,7 @@ void fill_from_file_action(TemplateContainer<Bill>& cont) {
 			}
 		}
 		catch (std::exception e) {
-			print_message(e.what());
+			print_message("Файл поврежден необратимо. Содержимое не может быть отражено.");
 		}
 	}
 }
