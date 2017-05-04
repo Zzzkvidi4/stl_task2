@@ -109,9 +109,10 @@ void Bill::setAddress(Address adr) {
 //сеттеры и геттеры для улицы
 void Bill::setStreetName(std::string street_name)
 {
-	if (street_name != "") {
-		this->address.setStreetName(street_name);
+	if (street_name == "") {
+        throw new std::exception("Улица не может быть пустой строкой.");
 	}
+    this->address.setStreetName(street_name);
 }
 
 std::string Bill::getStreetName() {
@@ -121,9 +122,10 @@ std::string Bill::getStreetName() {
 //сеттеры и геттеры для номера дома
 void Bill::setHouseNumber(std::string house_number)
 {
-	if (house_number != "0") {
-		this->address.setHouseNumber(house_number);
+	if (house_number == "0") {
+        throw new std::exception("Номер дома не должен быть равен 0.");
 	}
+    this->address.setHouseNumber(house_number);
 }
 
 void Bill::setHouseNumber(int num) {

@@ -336,60 +336,162 @@ void print_container_action(TemplateContainer<Bill> cont) {
 void add_record_action(TemplateContainer<Bill>& cont) {
 	if (input_query("¬вести запись? (Y/N) (N):")) {
 		Bill bill = Bill();
-		try {
-			std::string str;
+        bool isCorrect = false;
+		std::string str;
+        while (!isCorrect) {
+                std::cout << "¬ведите улицу:" << std::endl;
+                std::getline(std::cin, str);
+            try{
+                bill.setStreetName(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 
-			std::cout << "¬ведите улицу:" << std::endl;
-			std::getline(std::cin, str);
-			bill.setStreetName(str);
+        isCorrect = false;
+        while (!isCorrect) {
+            std::cout << "¬ведите номер дома:" << std::endl;
+            std::getline(std::cin, str);
+            try {
+                bill.setHouseNumber(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 
-			std::cout << "¬ведите номер дома:" << std::endl;
-			std::getline(std::cin, str);
-			bill.setHouseNumber(str);
+        isCorrect = false;
+        while (!isCorrect) {
+            std::cout << "¬ведите номер строени€ (пуста€ строка дл€ пропуска):" << std::endl;
+            std::getline(std::cin, str);
+            try {
+                bill.setBlockNumber(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 
-			std::cout << "¬ведите номер строени€ (пуста€ строка дл€ пропуска):" << std::endl;
-			std::getline(std::cin, str);
-			bill.setBlockNumber(str);
+        isCorrect = false;
+        while (!isCorrect) {
+            std::cout << "¬ведите номер квартиры (пуста€ строка дл€ пропуска):" << std::endl;
+            std::getline(std::cin, str);
+            try {
+                bill.setApartmentNumber(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 
-			std::cout << "¬ведите номер квартиры (пуста€ строка дл€ пропуска):" << std::endl;
-			std::getline(std::cin, str);
-			bill.setApartmentNumber(str);
+        isCorrect = false;
+        while (!isCorrect) {
+            std::cout << "¬ведите год платежа:" << std::endl;
+            std::getline(std::cin, str);
+            try {
+                bill.getDate().setYear(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 
-			std::cout << "¬ведите год платежа:" << std::endl;
-			std::getline(std::cin, str);
-			bill.getDate().setYear(str);
+        isCorrect = false;
+        while (!isCorrect) {
+            std::cout << "¬ведите мес€ц платежа:" << std::endl;
+            std::getline(std::cin, str);
+            try {
+                bill.getDate().setMonth(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 
-			std::cout << "¬ведите мес€ц платежа:" << std::endl;
-			std::getline(std::cin, str);
-			bill.getDate().setMonth(str);
+        isCorrect = false;
+        while (!isCorrect) {
+            std::cout << "¬ведите день платежа:" << std::endl;
+            std::getline(std::cin, str);
+            try {
+                bill.getDate().setDay(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 
-			std::cout << "¬ведите день платежа:" << std::endl;
-			std::getline(std::cin, str);
-			bill.getDate().setDay(str);
+        isCorrect = false;
+        while (!isCorrect) {
+            std::cout << "¬ведите фамилию владельца:" << std::endl;
+            std::getline(std::cin, str);
+            try {
+                bill.setSurname(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 
-			std::cout << "¬ведите фамилию владельца:" << std::endl;
-			std::getline(std::cin, str);
-			bill.setSurname(str);
+        isCorrect = false;
+        while (!isCorrect) {
+            std::cout << "¬ведите тип платежа:" << std::endl;
+            std::getline(std::cin, str);
+            try {
+                bill.setPaymentType(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 
-			std::cout << "¬ведите тип платежа:" << std::endl;
-			std::getline(std::cin, str);
-			bill.setPaymentType(str);
+        isCorrect = false;
+        while (!isCorrect) {
+            std::cout << "¬ведите сумму платежа:" << std::endl;
+            std::getline(std::cin, str);
+            try {
+                bill.setPayment(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 
-			std::cout << "¬ведите сумму платежа:" << std::endl;
-			std::getline(std::cin, str);
-			bill.setPayment(str);
+        isCorrect = false;
+        while (!isCorrect) {
+            std::cout << "¬ведите процент пени:" << std::endl;
+            std::getline(std::cin, str);
+            try {
+                bill.setPeni(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 
-			std::cout << "¬ведите процент пени:" << std::endl;
-			std::getline(std::cin, str);
-			bill.setPeni(str);
-
-			std::cout << "¬ведите количество дней просрочки:" << std::endl;
-			std::getline(std::cin, str);
-			bill.setDelayNumber(str);
-		}
-		catch (std::exception e) {
-			print_message(e.what());
-		}
+        isCorrect = false;
+        while (!isCorrect) {
+            std::cout << "¬ведите количество дней просрочки:" << std::endl;
+            std::getline(std::cin, str);
+            try {
+                bill.setDelayNumber(str);
+                isCorrect = true;
+            }
+            catch (std::exception e) {
+                print_message(e.what());
+            }
+        }
 		cont.Add(bill);
 	}
 }
