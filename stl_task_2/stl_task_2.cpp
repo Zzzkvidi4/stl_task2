@@ -334,14 +334,14 @@ void print_container_action(TemplateContainer<Bill> cont) {
 
 //действие добавлени€ записи
 void add_record_action(TemplateContainer<Bill>& cont) {
-	if (input_query("¬вести запись? (Y/N) (N):")) {
-		Bill bill = Bill();
+    if (input_query("¬вести запись? (Y/N) (N):")) {
+        Bill bill = Bill();
         bool isCorrect = false;
-		std::string str;
+        std::string str;
         while (!isCorrect) {
-                std::cout << "¬ведите улицу:" << std::endl;
-                std::getline(std::cin, str);
-            try{
+            std::cout << "¬ведите улицу:" << std::endl;
+            std::getline(std::cin, str);
+            try {
                 bill.setStreetName(str);
                 isCorrect = true;
             }
@@ -492,8 +492,8 @@ void add_record_action(TemplateContainer<Bill>& cont) {
                 print_message(e.what());
             }
         }
-		cont.Add(bill);
-	}
+        cont.Add(bill);
+    }
 }
 
 //действие удалени€ записи
