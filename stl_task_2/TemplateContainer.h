@@ -38,7 +38,7 @@ public:
 
 	//удаление по индексу
 	TemplateContainer<T>& Erase(int index) {
-		if (index >= elements.size()) {
+		if (index > elements.size()) {
 			throw std::out_of_range("Индекс находится вне диапазона!");
 		}
 		elements.erase(elements.begin() + index - 1);

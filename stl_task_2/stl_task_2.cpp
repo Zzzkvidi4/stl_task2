@@ -522,6 +522,7 @@ void select_records_by_surname(TemplateContainer<Bill> cont) {
 			SurnameFunctor func = SurnameFunctor(str);
 			TemplateContainer<Bill> result = cont.GetElemsIf(func);
 			std::cout << result << std::endl;
+            result[1].setStreetName("gkjsdyhgea");
 			bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
 			if (is_saving) {
 				std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
