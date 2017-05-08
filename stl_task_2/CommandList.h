@@ -12,6 +12,7 @@ public:
     void ExecuteCommand(int index);
     void PrintTitles(std::string header);
     void Clear();
+    int Size();
     ~CommandList();
 };
 

@@ -87,6 +87,24 @@
     <ClInclude Include="ApartmentNumberFunctor.h">
       <Filter>Header Files\Functors</Filter>
     </ClInclude>
+    <ClInclude Include="HavePeniFunctor.h">
+      <Filter>Header Files\Functors</Filter>
+    </ClInclude>
+    <ClInclude Include="DateFunctor.h">
+      <Filter>Header Files\Functors</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadFromFileCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintToFileCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="AddBillCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -123,6 +141,12 @@
       <Filter>Source Files\Functors</Filter>
     </ClCompile>
     <ClCompile Include="ApartmentNumberFunctor.cpp">
+      <Filter>Source Files\Functors</Filter>
+    </ClCompile>
+    <ClCompile Include="HavePeniFunctor.cpp">
+      <Filter>Source Files\Functors</Filter>
+    </ClCompile>
+    <ClCompile Include="DateFunctor.cpp">
       <Filter>Source Files\Functors</Filter>
     </ClCompile>
   </ItemGroup>

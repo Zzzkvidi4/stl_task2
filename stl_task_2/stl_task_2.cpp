@@ -70,7 +70,7 @@ private:
 	int num;
 };*/
 
-struct HavePeniFunctor {
+/*struct HavePeniFunctor {
 	HavePeniFunctor(bool val) : hasPeni(val) {};
 
 	bool operator()(Bill bill) {
@@ -84,9 +84,9 @@ struct HavePeniFunctor {
 	}
 private:
 	bool hasPeni;
-};
+};*/
 
-struct DateFunctor {
+/*struct DateFunctor {
 public:
 	DateFunctor(Date date) {
 		this->date = date;
@@ -103,7 +103,7 @@ public:
 	}
 private:
 	Date date;
-};
+};*/
 
 //основное меню
 void print_main_menu(TemplateContainer<Bill>& cont) {
@@ -945,13 +945,26 @@ int main()
 	setlocale(LC_ALL, "russian");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	TemplateContainer<Bill> cont = TemplateContainer<Bill>();
-	int choice = -1;
+	TemplateContainer<Bill>* cont = new TemplateContainer<Bill>();
+	/*int choice = -1;
 	while (choice != 0) {
 		print_main_menu(cont);
 		getChoice(0, 8, choice);
 		create_action(cont, choice);
-	}
+	}*/
+    CommandList* main_menu = new CommandList();
+    main_menu->RegisterCommand(new ReadFromFileCommand<Bill>("Заполнение из файла.", cont));
+    main_menu->RegisterCommand(new PrintToFileCommand<Bill>("Вывод в файл.", cont));
+    main_menu->RegisterCommand(new PrintCommand<Bill>("Вывод в консоль.", cont));
+    main_menu->RegisterCommand(new AddBillCommand("Добавление записи.", cont));
+    int choice = -1;
+    while (choice != 0) {
+        main_menu->PrintTitles("Выберите один из пунктов меню:");
+        getChoice(0, main_menu->Size(), choice);
+        if (choice != 0) {
+            main_menu->ExecuteCommand(choice);
+        }
+    }
 	return 0;
 }
 

@@ -22,6 +22,11 @@
 #include "BaseFunctor.h"
 #include "SurnameFunctor.h"
 #include "AbstractFunctorCreator.h"
+#include "CommandList.h"
+#include "ReadFromFileCommand.h"
+#include "PrintCommand.h"
+#include "PrintToFileCommand.h"
+#include "AddBillCommand.h"
 
 
 
