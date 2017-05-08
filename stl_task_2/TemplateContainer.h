@@ -1,5 +1,7 @@
 #pragma once
 #include "stdafx.h"
+#include "BaseFunctor.h"
+#include <functional>
 
 template<typename T>
 class TemplateContainer{
@@ -50,24 +52,22 @@ public:
 	}
 
 	//выборка элементов по критерию
-	template<typename Pred>
-	TemplateContainer<T>& GetElemsIf(Pred func) {
+	TemplateContainer<T>& GetElemsIf(BaseFunctor<T>* func) {
 		TemplateContainer<T>* result = new TemplateContainer<T>();
-		std::copy_if(elements.begin(), elements.end(), std::back_inserter(result->elements), func);
+		std::copy_if(elements.begin(), elements.end(), std::back_inserter(result->elements), std::bind1st(std::mem_fun(&BaseFunctor<T>::operator()), func));
 		return *result;
 	}
 
 	//выборка элементов по критерию с предварительной сортировкой
-	template<typename Pred>
-	TemplateContainer<T>& GetElemsIfBinary(bool comp(T,T), Pred pred, T val) {
+	TemplateContainer<T>& GetElemsIfBinary(bool comp(T,T), BaseFunctor<T>* func) {
 		TemplateContainer<T>* result = new TemplateContainer<T>();
 		SortElemsBy(comp);
-		int start = BinarySearch(comp, pred, val);
+		int start = BinarySearch(comp, std::bind1st(std::mem_fun(&BaseFunctor<T>::operator()), func), func->GetValue());
 		if (start != -1) {
-			for (TemplateContainer<T>::iterator it = begin() + start; (it != end()) && (pred(*it)); ++it) {
+			for (TemplateContainer<T>::iterator it = begin() + start; (it != end()) && (func->operator()(*it)); ++it) {
 				result->Add(*it);
 			}
-			for (TemplateContainer<T>::iterator it = begin() + start - 1; (it != begin()) && (pred(*it)); --it) {
+			for (TemplateContainer<T>::iterator it = begin() + start - 1; (it != begin()) && (func->operator()(*it)); --it) {
 				result->Add(*it);
 			}
 		}

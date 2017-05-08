@@ -20,6 +20,7 @@
 #include "help_utils.h"
 #include "Date.h"
 #include "BaseFunctor.h"
+#include "SurnameFunctor.h"
 #include "AbstractFunctorCreator.h"
 
 

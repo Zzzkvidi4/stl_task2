@@ -1,7 +1,6 @@
 #pragma once
 #include "BaseFunctor.h"
-
-class SurnameFunctor : public BaseFunctor
+class SurnameFunctor : public BaseFunctor<Bill>
 {
 private:
     std::string surname;

@@ -92,9 +92,6 @@
     <ClCompile Include="help_utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TemplateContainer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Command.cpp">
       <Filter>Source Files\Commands</Filter>
     </ClCompile>
@@ -113,11 +110,8 @@
     <ClCompile Include="AbstractFunctorCreator.cpp">
       <Filter>Source Files\SearchFactory</Filter>
     </ClCompile>
-    <ClCompile Include="BaseFunctor.cpp">
-      <Filter>Source Files\Functors</Filter>
-    </ClCompile>
     <ClCompile Include="SurnameFunctor.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Functors</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

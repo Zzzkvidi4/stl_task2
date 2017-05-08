@@ -514,15 +514,12 @@ void remove_record_action(TemplateContainer<Bill>& cont) {
 
 //выборка по фамилии
 void select_records_by_surname(TemplateContainer<Bill> cont) {
-	/*if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
-		std::cout << "Введите фамилию владельца (пустая строка - отмена):" << std::endl;
-		std::string str;
-		std::getline(std::cin, str);
-		if (str != "") {
-			SurnameFunctor func = SurnameFunctor(str);
+	if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
+            std::string str;
+			BaseFunctor<Bill>* func =  new SurnameFunctor();
+            func->Initialize();
 			TemplateContainer<Bill> result = cont.GetElemsIf(func);
 			std::cout << result << std::endl;
-            result[1].setStreetName("gkjsdyhgea");
 			bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
 			if (is_saving) {
 				std::cout << "Введите имя файла (пустая строка - отмена):" << std::endl;
@@ -536,19 +533,16 @@ void select_records_by_surname(TemplateContainer<Bill> cont) {
 					}
 				}
 			}
-		}
-	}*/
+	}
 }
 
 //выборка во фамилии бинарная
 void select_records_by_surname_binary(TemplateContainer<Bill> cont) {
-	/*if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
-		std::cout << "Введите фамилию владельца (пустая строка - отмена):" << std::endl;
+	if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
 		std::string str;
-		std::getline(std::cin, str);
-		if (str != "") {
-			SurnameFunctor func = SurnameFunctor(str);
-			TemplateContainer<Bill> result = cont.GetElemsIfBinary(Bill::surnameComparator, func, func.constructValue());
+			BaseFunctor<Bill>* func = new SurnameFunctor();
+            func->Initialize();
+            TemplateContainer<Bill> result = cont.GetElemsIfBinary(Bill::surnameComparator, func);
 			std::cout << result << std::endl;
 			bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
 			if (is_saving) {
@@ -563,13 +557,12 @@ void select_records_by_surname_binary(TemplateContainer<Bill> cont) {
 					}
 				}
 			}
-		}
-	}*/
+	}
 }
 
 //выборка по номеру квартиры
 void select_records_by_apartment_number(TemplateContainer<Bill> cont) {
-	if (input_query("Ввести номер квартиры? (Y/N) (N):")) {
+	/*if (input_query("Ввести номер квартиры? (Y/N) (N):")) {
 		std::cout << "Введите номер квартиры (пустая строка - отмена, 0 - нет номера квартиры):" << std::endl;
 		std::string str;
 		std::getline(std::cin, str);
@@ -597,12 +590,12 @@ void select_records_by_apartment_number(TemplateContainer<Bill> cont) {
 				print_message("Номер квартиры должен быть числом!");
 			}
 		}
-	}
+	}*/
 }
 
 //выборка по номеру квартиры бинарная
 void select_records_by_apartment_number_binary(TemplateContainer<Bill> cont) {
-	if (input_query("Ввести номер квартиры? (Y/N) (N):")) {
+	/*if (input_query("Ввести номер квартиры? (Y/N) (N):")) {
 		std::cout << "Введите номер квартиры (пустая строка - отмена, 0 - нет номера квартиры):" << std::endl;
 		std::string str;
 		std::getline(std::cin, str);
@@ -630,12 +623,12 @@ void select_records_by_apartment_number_binary(TemplateContainer<Bill> cont) {
 				print_message("Номер квартиры должен быть числом!");
 			}
 		}
-	}
+	}*/
 }
 
 //выборка по номеру дома
 void select_records_by_house_number(TemplateContainer<Bill> cont) {
-	if (input_query("Ввести номер дома? (Y/N) (N):")) {
+	/*if (input_query("Ввести номер дома? (Y/N) (N):")) {
 		std::string str;
 		std::getline(std::cin, str);
 		if (str != "") {
@@ -662,12 +655,12 @@ void select_records_by_house_number(TemplateContainer<Bill> cont) {
 				print_message("Номер дома должен быть числом!");
 			}
 		}
-	}
+	}*/
 }
 
 //выборка по номеру дома бинарная
 void select_records_by_house_number_binary(TemplateContainer<Bill> cont) {
-	if (input_query("Ввести номер дома? (Y/N) (N):")) {
+	/*if (input_query("Ввести номер дома? (Y/N) (N):")) {
 		std::string str;
 		std::getline(std::cin, str);
 		if (str != "") {
@@ -694,12 +687,12 @@ void select_records_by_house_number_binary(TemplateContainer<Bill> cont) {
 				print_message("Номер дома должен быть числом!");
 			}
 		}
-	}
+	}*/
 }
 
 //выборка по дате
 void select_records_by_date(TemplateContainer<Bill> cont) {
-	if (input_query("Ввести дату? (Y/N) (N):")) {
+	/*if (input_query("Ввести дату? (Y/N) (N):")) {
 		Date date = Date();
 		try {
 			std::cin >> date;
@@ -724,12 +717,12 @@ void select_records_by_date(TemplateContainer<Bill> cont) {
 		catch (std::exception e) {
 			print_message(e.what());
 		}
-	}
+	}*/
 }
 
 //выборка по дате бинарная
 void select_records_by_date_binary(TemplateContainer<Bill> cont) {
-	if (input_query("Ввести дату? (Y/N) (N):")) {
+	/*if (input_query("Ввести дату? (Y/N) (N):")) {
 		Date date = Date();
 		try {
 			std::cin >> date;
@@ -754,12 +747,12 @@ void select_records_by_date_binary(TemplateContainer<Bill> cont) {
 		catch (std::exception e) {
 			print_message(e.what());
 		}
-	}
+	}*/
 }
 
 //выборка по наличию пени
 void select_records_by_having_peni(TemplateContainer<Bill> cont) {
-	std::string str;
+	/*std::string str;
 	HavePeniFunctor func = HavePeniFunctor(input_query("Выборка счетов с долгом? (Y/N) (N):"));
 	TemplateContainer<Bill> result = cont.GetElemsIf(func);
 	std::cout << result << std::endl;
@@ -775,12 +768,12 @@ void select_records_by_having_peni(TemplateContainer<Bill> cont) {
 				print_message(e.what());
 			}
 		}
-	}
+	}*/
 }
 
 //выборка по наличию пени бинарная
 void select_records_by_having_peni_binary(TemplateContainer<Bill> cont) {
-	std::string str;
+	/*std::string str;
 	HavePeniFunctor func = HavePeniFunctor(input_query("Выборка счетов с долгом? (Y/N) (N):"));
 	TemplateContainer<Bill> result = cont.GetElemsIfBinary(Bill::peniComparator, func, func.constructValue());
 	std::cout << result << std::endl;
@@ -796,7 +789,7 @@ void select_records_by_having_peni_binary(TemplateContainer<Bill> cont) {
 				print_message(e.what());
 			}
 		}
-	}
+	}*/
 }
 
 //меню выборок
