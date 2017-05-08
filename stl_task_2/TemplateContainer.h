@@ -28,7 +28,7 @@ public:
 	}
 
 	//размер контейнера
-	int size() {
+	size_t size() {
 		return elements.size();
 	}
 
@@ -77,7 +77,7 @@ public:
 	//бинарный поиск по контейнеру
 	template<typename Pred>
 	int BinarySearch(bool comp(T, T), Pred pred, T val) {
-		int left = 0, right = elements.size() - 1, middle;
+		size_t left = 0, right = elements.size() - 1, middle;
 		if (right == -1) {
 			return -1;
 		}

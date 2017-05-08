@@ -1,5 +1,7 @@
 #pragma once
 #include "BaseFunctor.h"
+#include "Bill.h"
+
 class SurnameFunctor : public BaseFunctor<Bill>
 {
 private:

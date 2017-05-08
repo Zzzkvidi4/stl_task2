@@ -32,7 +32,7 @@ private:
 	std::string surname;
 };*/
 
-struct HouseNumberFunctor {
+/*struct HouseNumberFunctor {
 public:
 	HouseNumberFunctor(int num) {
 		this->num = num;
@@ -49,7 +49,7 @@ public:
 	}
 private:
 	int num;
-};
+};*/
 
 struct ApartmentNumberFunctor {
 public:

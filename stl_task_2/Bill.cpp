@@ -30,7 +30,7 @@ std::string Bill::to_string()
 //преобразование из строки
 bool Bill::StrToBill(std::string str, Bill& bill) {
 	bool res = true;
-	int position = str.find('`');
+	size_t position = str.find('`');
 	if (position == std::string::npos) {
 		return false;
 	}
@@ -306,7 +306,7 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 {
 	std::string buf;
 	std::getline(cin, buf);
-	int position = buf.find(':');
+	size_t position = buf.find(':');
 	if (position == std::string::npos) {
 		throw std::invalid_argument("¬вод некорректен!");
 	}

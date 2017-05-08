@@ -111,7 +111,7 @@ public:
 	}
 
 	static bool StrToAddress(std::string str, Address& adr) {
-		int position = str.find(',');
+		size_t position = str.find(',');
 		adr.setStreetName(str.substr(0, position));
 		str = str.substr(position + 5); //' ä. '
 		std::string buf = str.substr(0, str.find(','));

@@ -40,7 +40,6 @@ Bill SurnameFunctor::GetValue()
     return *bill;
 }
 
-
 SurnameFunctor::~SurnameFunctor()
 {
 }
