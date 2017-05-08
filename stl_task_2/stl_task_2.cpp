@@ -51,7 +51,7 @@ private:
 	int num;
 };*/
 
-struct ApartmentNumberFunctor {
+/*struct ApartmentNumberFunctor {
 public:
 	ApartmentNumberFunctor(int num) {
 		this->num = num;
@@ -68,7 +68,7 @@ public:
 	}
 private:
 	int num;
-};
+};*/
 
 struct HavePeniFunctor {
 	HavePeniFunctor(bool val) : hasPeni(val) {};

@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractFunctorCreator.h" />
+    <ClInclude Include="ApartmentNumberFunctor.h" />
     <ClInclude Include="BaseFunctor.h" />
     <ClInclude Include="Bill.h" />
     <ClInclude Include="Command.h" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractFunctorCreator.cpp" />
+    <ClCompile Include="ApartmentNumberFunctor.cpp" />
     <ClCompile Include="Bill.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandList.cpp" />

@@ -84,6 +84,9 @@
     <ClInclude Include="HouseNumberFunctor.h">
       <Filter>Header Files\Functors</Filter>
     </ClInclude>
+    <ClInclude Include="ApartmentNumberFunctor.h">
+      <Filter>Header Files\Functors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -117,6 +120,9 @@
       <Filter>Source Files\Functors</Filter>
     </ClCompile>
     <ClCompile Include="HouseNumberFunctor.cpp">
+      <Filter>Source Files\Functors</Filter>
+    </ClCompile>
+    <ClCompile Include="ApartmentNumberFunctor.cpp">
       <Filter>Source Files\Functors</Filter>
     </ClCompile>
   </ItemGroup>
