@@ -1,10 +1,12 @@
 #include "stdafx.h"
 #include "HouseNumberFunctor.h"
+#include "Bill.h"
 
 
 HouseNumberFunctor::HouseNumberFunctor()
 {
     house_number = -1;
+    comparator = Bill::houseNumberComparator;
 }
 
 bool HouseNumberFunctor::operator()(Bill bill)

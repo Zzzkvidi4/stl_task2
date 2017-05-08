@@ -59,8 +59,9 @@ public:
 	}
 
 	//выборка элементов по критерию с предварительной сортировкой
-	TemplateContainer<T>& GetElemsIfBinary(bool comp(T,T), BaseFunctor<T>* func) {
+	TemplateContainer<T>& GetElemsIfBinary(BaseFunctor<T>* func) {
 		TemplateContainer<T>* result = new TemplateContainer<T>();
+        std::function<bool(T, T)> comp = func->GetComparator();
 		SortElemsBy(comp);
 		int start = BinarySearch(comp, std::bind1st(std::mem_fun(&BaseFunctor<T>::operator()), func), func->GetValue());
 		if (start != -1) {
@@ -76,7 +77,7 @@ public:
 
 	//бинарный поиск по контейнеру
 	template<typename Pred>
-	int BinarySearch(bool comp(T, T), Pred pred, T val) {
+	int BinarySearch(std::function<bool(T,T)> comp, Pred pred, T val) {
 		size_t left = 0, right = elements.size() - 1, middle;
 		if (right == -1) {
 			return -1;
@@ -106,7 +107,7 @@ public:
 	}
 
 	//сортировка по критерию
-	void SortElemsBy(bool comp(T, T)) {
+	void SortElemsBy(std::function<bool(T,T)> comp) {
 		std::sort(elements.begin(), elements.end(), comp);
 	}
 

@@ -4,6 +4,7 @@
 
 SurnameFunctor::SurnameFunctor()
 {
+    comparator = Bill::surnameComparator;
 }
 
 bool SurnameFunctor::operator()(Bill bill)

@@ -542,7 +542,7 @@ void select_records_by_surname_binary(TemplateContainer<Bill> cont) {
 		std::string str;
 			BaseFunctor<Bill>* func = new SurnameFunctor();
             func->Initialize();
-            TemplateContainer<Bill> result = cont.GetElemsIfBinary(Bill::surnameComparator, func);
+            TemplateContainer<Bill> result = cont.GetElemsIfBinary(func);
 			std::cout << result << std::endl;
 			bool is_saving = input_query("Сохранить результат в файл? (Y/N) (N):");
 			if (is_saving) {
