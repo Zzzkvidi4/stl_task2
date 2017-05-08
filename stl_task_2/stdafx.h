@@ -19,6 +19,8 @@
 #include "Bill.h"
 #include "help_utils.h"
 #include "Date.h"
+#include "BaseFunctor.h"
+#include "AbstractFunctorCreator.h"
 
 
 

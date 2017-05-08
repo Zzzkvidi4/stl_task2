@@ -13,6 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Commands">
+      <UniqueIdentifier>{8f79ce17-cbfc-4119-ab5e-8db1001bee98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Commands">
+      <UniqueIdentifier>{1ca11f0e-36ca-4bc3-b24d-46808e08387d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Structure">
+      <UniqueIdentifier>{cc8bfae6-775e-4d65-a3e8-18cfa9cdf949}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Structure">
+      <UniqueIdentifier>{26b9886a-aed3-4e72-b15f-207e97abda9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SearchFactory">
+      <UniqueIdentifier>{c6d7ceee-c3ff-478e-9fe2-f12829ef659c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SearchFactory">
+      <UniqueIdentifier>{a9022de2-8ad5-45e6-a8aa-5dfdc52fbbd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Functors">
+      <UniqueIdentifier>{cd85acb4-b01f-42b8-a98e-875cbd0cd3dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Functors">
+      <UniqueIdentifier>{3fa84701-f931-4832-a231-aced20dcc0f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -24,17 +48,35 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bill.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="help_utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Date.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TemplateContainer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandList.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Bill.h">
+      <Filter>Header Files\Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="Date.h">
+      <Filter>Header Files\Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchFunctorFactory.h">
+      <Filter>Header Files\SearchFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractFunctorCreator.h">
+      <Filter>Header Files\SearchFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseFunctor.h">
+      <Filter>Header Files\Functors</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctorCreator.h">
+      <Filter>Header Files\SearchFactory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -44,17 +86,32 @@
     <ClCompile Include="stl_task_2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bill.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="help_utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Date.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TemplateContainer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandList.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Bill.cpp">
+      <Filter>Source Files\Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="Date.cpp">
+      <Filter>Source Files\Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchFunctorFactory.cpp">
+      <Filter>Source Files\SearchFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="AbstractFunctorCreator.cpp">
+      <Filter>Source Files\SearchFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseFunctor.cpp">
+      <Filter>Source Files\Functors</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
