@@ -78,6 +78,9 @@
     <ClInclude Include="FunctorCreator.h">
       <Filter>Header Files\SearchFactory</Filter>
     </ClInclude>
+    <ClInclude Include="SurnameFunctor.h">
+      <Filter>Header Files\Functors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -112,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="BaseFunctor.cpp">
       <Filter>Source Files\Functors</Filter>
+    </ClCompile>
+    <ClCompile Include="SurnameFunctor.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -16,7 +16,7 @@
 Поиск по номеру дома, квартиры, владельцу, дате, наличии долга. 
 Вывод суммы долга в результатах поиска. */
 
-struct SurnameFunctor {
+/*struct SurnameFunctor {
 	SurnameFunctor(std::string surname):surname(surname) {}
 
 	bool operator()(Bill bill) {
@@ -30,7 +30,7 @@ struct SurnameFunctor {
 	}
 private:
 	std::string surname;
-};
+};*/
 
 struct HouseNumberFunctor {
 public:
@@ -514,7 +514,7 @@ void remove_record_action(TemplateContainer<Bill>& cont) {
 
 //выборка по фамилии
 void select_records_by_surname(TemplateContainer<Bill> cont) {
-	if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
+	/*if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
 		std::cout << "Введите фамилию владельца (пустая строка - отмена):" << std::endl;
 		std::string str;
 		std::getline(std::cin, str);
@@ -537,12 +537,12 @@ void select_records_by_surname(TemplateContainer<Bill> cont) {
 				}
 			}
 		}
-	}
+	}*/
 }
 
 //выборка во фамилии бинарная
 void select_records_by_surname_binary(TemplateContainer<Bill> cont) {
-	if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
+	/*if (input_query("Ввести фамилию владельца? (Y/N) (N):")) {
 		std::cout << "Введите фамилию владельца (пустая строка - отмена):" << std::endl;
 		std::string str;
 		std::getline(std::cin, str);
@@ -564,7 +564,7 @@ void select_records_by_surname_binary(TemplateContainer<Bill> cont) {
 				}
 			}
 		}
-	}
+	}*/
 }
 
 //выборка по номеру квартиры

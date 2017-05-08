@@ -4,7 +4,6 @@
 
 BaseFunctor::BaseFunctor()
 {
-    Initialize();
 }
 
 
