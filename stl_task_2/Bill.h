@@ -212,5 +212,6 @@ public:
 	static bool surnameComparator(Bill bill1, Bill bill2);
 	static bool dateComparator(Bill bill1, Bill bill2);
 	static bool peniComparator(Bill bill1, Bill bill2);
+	bool operator==(Bill bill);
 };
 

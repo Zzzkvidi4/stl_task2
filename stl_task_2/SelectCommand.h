@@ -62,11 +62,12 @@ public:
         choice = -1;
         while (choice != 0) {
             sub_list->PrintTitles("¬ыберите один из пунктов меню дл€ выборки:");
-            getChoice(0, 3, choice);
+            getChoice(0, sub_list->Size(), choice);
             if (choice != 0) {
                 sub_list->ExecuteCommand(choice);
             }
         }
+		cont->PushBack(result);
     }
 
     std::string SelectType() {

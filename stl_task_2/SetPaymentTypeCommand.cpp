@@ -9,23 +9,14 @@ SetPaymentTypeCommand::SetPaymentTypeCommand(std::string title, Bill& bill): Com
 
 void SetPaymentTypeCommand::Execute()
 {
-	bool isCorrect = false;
 	std::string str;
-	std::cout << "Текущее значение: " << bill.getPayment() << std::endl;
-	while (!isCorrect) {
-		std::cout << "Введите новую сумму платежа (пустая строка - отмена):" << std::endl;
-		std::getline(std::cin, str);
-		if (str == "") {
-			throw new std::exception("");
-		}
-		try {
-			bill.setPayment(str);
-			isCorrect = true;
-		}
-		catch (std::exception e) {
-			print_message(e.what());
-		}
+	std::cout << "Текущее значение: " << bill.getPaymentType() << std::endl;
+	std::cout << "Введите новый тип платежа (пустая строка - отмена):" << std::endl;
+	std::getline(std::cin, str);
+	if (str == "") {
+		throw new std::exception("");
 	}
+	bill.setPaymentType(str);
 }
 
 SetPaymentTypeCommand::~SetPaymentTypeCommand()

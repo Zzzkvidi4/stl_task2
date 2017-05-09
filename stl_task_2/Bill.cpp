@@ -205,6 +205,7 @@ void Bill::setPayment(double payment)
 
 void Bill::setPayment(std::string str) {
 	try {
+		this->payment = std::stod(str);
 		dec::fromString(str, this->payment);
 	}
 	catch (std::exception e) {
@@ -226,6 +227,7 @@ void Bill::setPeni(double peni)
 
 void Bill::setPeni(std::string str) {
 	try {
+		this->peni = std::stod(str);
 		dec::fromString(str, this->peni);
 	}
 	catch (std::exception e) {
@@ -291,6 +293,11 @@ bool Bill::dateComparator(Bill bill1, Bill bill2) {
 
 bool Bill::peniComparator(Bill bill1, Bill bill2) {
 	return bill1.countPeni() < bill2.countPeni();
+}
+
+bool Bill::operator==(Bill bill)
+{
+	return this->to_string() == bill.to_string();
 }
 
 //операции ввода/вывода

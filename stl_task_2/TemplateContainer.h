@@ -55,6 +55,9 @@ public:
 	TemplateContainer<T>* GetElemsIf(BaseFunctor<T>* func) {
 		TemplateContainer<T>* result = new TemplateContainer<T>();
 		std::copy_if(elements.begin(), elements.end(), std::back_inserter(result->elements), std::bind1st(std::mem_fun(&BaseFunctor<T>::operator()), func));
+		for (TemplateContainer<T>::iterator it = result->begin(); it != result->end(); ++it) {
+			elements.erase(std::remove(elements.begin(), elements.end(), *it));
+		}
 		return result;
 	}
 
@@ -72,7 +75,16 @@ public:
 				result->Add(*it);
 			}
 		}
+		for (TemplateContainer<T>::iterator it = result->begin(); it != result->end(); ++it) {
+			elements.erase(std::remove(elements.begin(), elements.end(), *it));
+		}
 		return result;
+	}
+
+	void PushBack(TemplateContainer<T>* cont) {
+		for (TemplateContainer<T>::iterator it = cont->begin(); it != cont->end(); ++it) {
+			this->Add(*it);
+		}
 	}
 
 	//бинарный поиск по контейнеру
