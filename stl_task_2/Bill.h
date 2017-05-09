@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "Date.h"
 #include "help_utils.h"
+#include "decimal.h"
 
 
 struct Address {
@@ -160,7 +161,6 @@ public:
 	}
 };
 
-
 class Bill
 {
 private:
@@ -168,10 +168,9 @@ private:
 	std::string surname;
 	Date date;
 	std::string payment_type;
-	double payment;
-	double peni;
+	dec::decimal<2> payment;
+	dec::decimal<2> peni;
 	int delay_number;
-	double peni_payment;
 	bool hasPeni;
 public:
 	Bill();
@@ -197,15 +196,15 @@ public:
 	std::string getPaymentType();
 	void setPayment(double payment);
 	void setPayment(std::string str);
-	double getPayment();
+	dec::decimal<2> getPayment();
 	void setPeni(double peni);
 	void setPeni(std::string str);
-	double getPeni();
+	dec::decimal<2> getPeni();
 	void setDelayNumber(int delay_number);
 	void setDelayNumber(std::string str);
 	int getDelayNumber();
 	void setHasPeni(bool val);
-	double countPeni();
+	dec::decimal<2> countPeni();
 	friend std::ostream& operator<<(std::ostream& cout, Bill bill);
 	friend std::istream& operator>>(std::istream& cin, Bill& bill);
 	static bool houseNumberComparator(Bill bill1, Bill bill2);

@@ -52,14 +52,14 @@ public:
 	}
 
 	//выборка элементов по критерию
-	TemplateContainer<T>& GetElemsIf(BaseFunctor<T>* func) {
+	TemplateContainer<T>* GetElemsIf(BaseFunctor<T>* func) {
 		TemplateContainer<T>* result = new TemplateContainer<T>();
 		std::copy_if(elements.begin(), elements.end(), std::back_inserter(result->elements), std::bind1st(std::mem_fun(&BaseFunctor<T>::operator()), func));
-		return *result;
+		return result;
 	}
 
 	//выборка элементов по критерию с предварительной сортировкой
-	TemplateContainer<T>& GetElemsIfBinary(BaseFunctor<T>* func) {
+	TemplateContainer<T>* GetElemsIfBinary(BaseFunctor<T>* func) {
 		TemplateContainer<T>* result = new TemplateContainer<T>();
         std::function<bool(T, T)> comp = func->GetComparator();
 		SortElemsBy(comp);
@@ -72,7 +72,7 @@ public:
 				result->Add(*it);
 			}
 		}
-		return *result;
+		return result;
 	}
 
 	//бинарный поиск по контейнеру

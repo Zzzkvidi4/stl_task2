@@ -1,30 +1,31 @@
 #pragma once
 #include <map>
+#include "FunctorCreator.h"
 
+template <typename T>
 class SearchFunctorFactory
 {
 private:
-    std::map<std::string, AbstractFunctorCreator*> FactoryMap;
+	std::map<std::string, AbstractFunctorCreator*> FactoryMap;
 public:
-    SearchFunctorFactory();
+	SearchFunctorFactory() {}
 
-    template <typename T>
+    template <typename S>
     void Add(std::string id) {
         typename std::map<std::string, AbstractFunctorCreator*> map;
-        if (FactoryMap.find(id) == map.end()) {
-            FactoryMap[id] = new FunctorCreator<T>();
+        if (FactoryMap.find(id) == FactoryMap.end()) {
+            FactoryMap[id] = new FunctorCreator<S>();
         }
     }
 
     template <typename T>
-    void Create(std::string id) {
-        typename std::map<std::string, AbstractFunctorCreator*> map;
+    BaseFunctor<T>* Create(std::string id) {
         std::map<std::string, AbstractFunctorCreator*>::iterator iter = FactoryMap.find(id);
-        if (iter != map.end()) {
-            iter->second->Create();
+        if (iter != FactoryMap.end()) {
+            return iter->second->Create();
         }
     }
 
-    ~SearchFunctorFactory();
+	~SearchFunctorFactory() {}
 };
 

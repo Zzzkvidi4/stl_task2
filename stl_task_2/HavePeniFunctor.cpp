@@ -10,7 +10,7 @@ HavePeniFunctor::HavePeniFunctor()
 
 bool HavePeniFunctor::operator()(Bill bill)
 {
-    return (bill.countPeni() > DBL_EPSILON) == hasPeni;
+    return (bill.countPeni() > dec::decimal_cast<2>(DBL_EPSILON)) == hasPeni;
 }
 
 void HavePeniFunctor::Initialize()

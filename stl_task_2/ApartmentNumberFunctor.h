@@ -1,5 +1,5 @@
 #pragma once
-class ApartmentNumberFunctor: BaseFunctor<Bill>
+class ApartmentNumberFunctor: public BaseFunctor<Bill>
 {
 private:
     int apartment_number = -1;

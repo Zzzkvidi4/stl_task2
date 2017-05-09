@@ -126,11 +126,35 @@
     <ClInclude Include="SetYearCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="SetMonthCommand.h">
+    <ClInclude Include="decimal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SetDayCommand.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SetMonthCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SetPaymentCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SetPaymentTypeCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SetPeniCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SetDelayDaysNumberCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ExitCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoveCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +178,6 @@
     </ClCompile>
     <ClCompile Include="Date.cpp">
       <Filter>Source Files\Structure</Filter>
-    </ClCompile>
-    <ClCompile Include="SearchFunctorFactory.cpp">
-      <Filter>Source Files\SearchFactory</Filter>
     </ClCompile>
     <ClCompile Include="AbstractFunctorCreator.cpp">
       <Filter>Source Files\SearchFactory</Filter>
@@ -197,11 +218,23 @@
     <ClCompile Include="SetYearCommand.cpp">
       <Filter>Source Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="SetMonthCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SetDayCommand.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SetMonthCommand.cpp">
+      <Filter>Source Files\Functors</Filter>
+    </ClCompile>
+    <ClCompile Include="SetPaymentCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SetPaymentTypeCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SetPeniCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SetDelayDaysNumberCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

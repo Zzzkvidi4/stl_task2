@@ -4,9 +4,11 @@ class FunctorCreator: public AbstractFunctorCreator
 {
 public:
     FunctorCreator() {};
-    BaseFunctor* Create() {
+
+    BaseFunctor<Bill>* Create() {
         return new T();
     }
+
     ~FunctorCreator() {};
 };
 

@@ -28,6 +28,8 @@
 #include "PrintToFileCommand.h"
 #include "AddBillCommand.h"
 #include "EditRecordCommand.h"
+#include "RemoveCommand.h"
+#include "SelectCommand.h"
 #include "SetHouseNumberCommand.h"
 #include "SetStreetCommand.h"
 #include "SetBlockNumberCommand.h"
@@ -36,6 +38,12 @@
 #include "SetYearCommand.h"
 #include "SetMonthCommand.h"
 #include "SetDayCommand.h"
+#include "SetPaymentCommand.h"
+#include "SetPaymentTypeCommand.h"
+#include "SetPeniCommand.h"
+#include "SetDelayDaysNumberCommand.h"
+#include "decimal.h"
+#include "ExitCommand.h"
 
 
 

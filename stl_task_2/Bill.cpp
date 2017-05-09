@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Bill.h"
+#include "decimal.h"
 
 //конструктор по умолчанию
 Bill::Bill() {
@@ -24,7 +25,7 @@ Bill::Bill(std::string str) {
 std::string Bill::to_string()
 {
 	return address.to_string() + '`' + surname + '`' + date.to_string() + '`' + payment_type + '`' + 
-			std::to_string(payment) + '`' + std::to_string(peni) + '`' + std::to_string(delay_number);
+			dec::toString(payment) + '`' + dec::toString(peni) + '`' + std::to_string(delay_number);
 }
 
 //преобразование из строки
@@ -204,14 +205,14 @@ void Bill::setPayment(double payment)
 
 void Bill::setPayment(std::string str) {
 	try {
-		this->payment = std::stod(str);
+		dec::fromString(str, this->payment);
 	}
 	catch (std::exception e) {
 		throw std::invalid_argument("Сумма платежа не может быть не числом!");
 	}
 }
 
-double Bill::getPayment() {
+dec::decimal<2> Bill::getPayment() {
 	return payment;
 }
 
@@ -225,14 +226,14 @@ void Bill::setPeni(double peni)
 
 void Bill::setPeni(std::string str) {
 	try {
-		this->peni = std::stod(str);
+		dec::fromString(str, this->peni);
 	}
 	catch (std::exception e) {
 		throw std::invalid_argument("Пени не может быть не числом!");
 	}
 }
 
-double Bill::getPeni() {
+dec::decimal<2> Bill::getPeni() {
 	return peni;
 }
 
@@ -264,8 +265,8 @@ void Bill::setHasPeni(bool val) {
 }
 
 //подсчет пени
-double Bill::countPeni() {
-	return peni*payment*delay_number;
+dec::decimal<2> Bill::countPeni() {
+	return dec::decimal_cast<2>(peni*delay_number)*payment;
 }
 
 //компараторы по полям
@@ -297,7 +298,7 @@ std::ostream& operator<<(std::ostream & cout, Bill bill)
 {
 	cout << "Адрес: " << bill.address << std::endl << "Владелец: " << bill.surname << std::endl 
 			<< "Дата: " << bill.date << std::endl << "Тип платежа: " << bill.payment_type << std::endl 
-			<< "Сумма платежа: " << std::to_string(bill.payment) << std::endl << "Пени: " << std::to_string(bill.peni) << std::endl 
+			<< "Сумма платежа: " << dec::toString(bill.payment) << std::endl << "Пени: " << dec::toString(bill.peni) << std::endl 
 			<< "Дней задолжности: " << bill.delay_number << std::endl << "Долг: " << bill.countPeni();
 	return cout;
 }
@@ -354,7 +355,7 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	}
 	buf = buf.substr(position + 2);
 	try {
-		bill.payment = std::stod(buf);
+		dec::fromString(buf, bill.payment);
 	}
 	catch (std::invalid_argument e) {
 		throw std::invalid_argument("Сумма платежа не может быть не числом!");
@@ -367,7 +368,7 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	}
 	buf = buf.substr(position + 2);
 	try {
-		bill.peni = std::stod(buf);
+		dec::fromString(buf, bill.peni);
 	}
 	catch (std::invalid_argument e) {
 		throw std::invalid_argument("Процент пени не может быть не числом!");
@@ -390,13 +391,6 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	position = buf.find(':');
 	if (position == std::string::npos) {
 		throw std::invalid_argument("Ввод некорректен!");
-	}
-	buf = buf.substr(position + 2);
-	try {
-		bill.peni_payment = std::stod(buf);
-	}
-	catch (std::invalid_argument e) {
-		throw std::invalid_argument("Сумма пени не может быть не числом!");
 	}
 	bill.hasPeni = bill.delay_number > 0;
 	return cin;
