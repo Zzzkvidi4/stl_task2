@@ -31,6 +31,11 @@
 #include "SetHouseNumberCommand.h"
 #include "SetStreetCommand.h"
 #include "SetBlockNumberCommand.h"
+#include "SetApartmentNumberCommand.h"
+#include "SetSurnameCommand.h"
+#include "SetYearCommand.h"
+#include "SetMonthCommand.h"
+#include "SetDayCommand.h"
 
 
 

@@ -13,15 +13,18 @@ void CommandList::RegisterCommand(Command* command)
 
 void CommandList::ExecuteCommand(int index)
 {
-    if ((commands.size() < index) || (index < 0)) {
+    if ((commands.size() <= index) || (index < 0)) {
         throw new std::out_of_range("Нарушение индексации списка меню.");
     }
 	try {
+		system("cls");
 		commands[index]->Execute();
+		system("cls");
 	}
 	catch (std::exception e) {
 		if (e.what() != "") {
 			print_message(e.what());
+			system("cls");
 		}
 	}
 }
@@ -33,7 +36,7 @@ void CommandList::PrintTitles(std::string header)
     for (std::vector<Command*>::iterator iter = commands.begin() + 1; iter != commands.end(); ++iter) {
         std::cout << i++ << ". " << (*iter)->GetTitle() << std::endl;
     }
-	std::cout << "0. " << *commands.begin() << std::endl;
+	std::cout << "0. " << (*commands.begin())->GetTitle() << std::endl;
 }
 
 void CommandList::Clear()

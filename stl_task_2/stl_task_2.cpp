@@ -195,8 +195,8 @@ int main()
 		create_action(cont, choice);
 	}*/
     CommandList* main_menu = new CommandList();
-    main_menu->RegisterCommand(new ReadFromFileCommand<Bill>("Заполнение из файла.", cont));
     main_menu->RegisterCommand(new PrintToFileCommand<Bill>("Вывод в файл.", cont));
+	main_menu->RegisterCommand(new ReadFromFileCommand<Bill>("Заполнение из файла.", cont));
     main_menu->RegisterCommand(new PrintCommand<Bill>("Вывод в консоль.", cont));
     main_menu->RegisterCommand(new AddBillCommand("Добавление записи.", cont));
 	main_menu->RegisterCommand(new EditRecordCommand("Редактирование записи.", cont));
@@ -204,9 +204,7 @@ int main()
     while (choice != 0) {
         main_menu->PrintTitles("Выберите один из пунктов меню:");
         getChoice(0, main_menu->Size(), choice);
-        if (choice != 0) {
-            main_menu->ExecuteCommand(choice);
-        }
+        main_menu->ExecuteCommand(choice);
     }
 	return 0;
 }

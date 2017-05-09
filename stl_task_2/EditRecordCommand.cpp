@@ -16,6 +16,16 @@ void EditRecordCommand::Execute()
 	CommandList* record_list = new CommandList();
 	record_list->RegisterCommand(new SetStreetCommand("Улица.", bill));
 	record_list->RegisterCommand(new SetHouseNumberCommand("Номер дома.", bill));
+	record_list->RegisterCommand(new SetBlockNumberCommand("Номер строения.", bill));
+	record_list->RegisterCommand(new SetApartmentNumberCommand("Номер квартиры.", bill));
+	record_list->RegisterCommand(new SetSurnameCommand("Фамилия владельца.", bill));
+	choice = -1;
+	while (choice != 0) {
+		std::cout << bill << std::endl;
+		record_list->PrintTitles("Выберите один из пунктов меню изменения:");
+		getChoice(0, 4, choice);
+		record_list->ExecuteCommand(choice);
+	}
 }
 
 int EditRecordCommand::SelectBill() {
