@@ -154,6 +154,7 @@
     <ClInclude Include="CommandList.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="DateFunctor.h" />
+    <ClInclude Include="EditRecordCommand.h" />
     <ClInclude Include="FunctorCreator.h" />
     <ClInclude Include="HavePeniFunctor.h" />
     <ClInclude Include="help_utils.h" />
@@ -162,6 +163,9 @@
     <ClInclude Include="PrintToFileCommand.h" />
     <ClInclude Include="ReadFromFileCommand.h" />
     <ClInclude Include="SearchFunctorFactory.h" />
+    <ClInclude Include="SetBlockNumberCommand.h" />
+    <ClInclude Include="SetHouseNumberCommand.h" />
+    <ClInclude Include="SetStreetCommand.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SurnameFunctor.h" />
     <ClInclude Include="targetver.h" />
@@ -175,10 +179,14 @@
     <ClCompile Include="CommandList.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="DateFunctor.cpp" />
+    <ClCompile Include="EditRecordCommand.cpp" />
     <ClCompile Include="HavePeniFunctor.cpp" />
     <ClCompile Include="help_utils.cpp" />
     <ClCompile Include="HouseNumberFunctor.cpp" />
     <ClCompile Include="SearchFunctorFactory.cpp" />
+    <ClCompile Include="SetBlockNumberCommand.cpp" />
+    <ClCompile Include="SetHouseNumberCommand.cpp" />
+    <ClCompile Include="SetStreetCommand.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

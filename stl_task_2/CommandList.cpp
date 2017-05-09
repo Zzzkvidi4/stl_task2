@@ -16,7 +16,14 @@ void CommandList::ExecuteCommand(int index)
     if ((commands.size() < index) || (index < 0)) {
         throw new std::out_of_range("Нарушение индексации списка меню.");
     }
-    commands[index]->Execute();
+	try {
+		commands[index]->Execute();
+	}
+	catch (std::exception e) {
+		if (e.what() != "") {
+			print_message(e.what());
+		}
+	}
 }
 
 void CommandList::PrintTitles(std::string header)

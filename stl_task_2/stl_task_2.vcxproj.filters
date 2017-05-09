@@ -105,6 +105,18 @@
     <ClInclude Include="AddBillCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="EditRecordCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SetStreetCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SetHouseNumberCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SetBlockNumberCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -148,6 +160,18 @@
     </ClCompile>
     <ClCompile Include="DateFunctor.cpp">
       <Filter>Source Files\Functors</Filter>
+    </ClCompile>
+    <ClCompile Include="EditRecordCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SetStreetCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SetHouseNumberCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SetBlockNumberCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

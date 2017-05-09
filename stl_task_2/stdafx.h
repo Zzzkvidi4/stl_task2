@@ -27,6 +27,10 @@
 #include "PrintCommand.h"
 #include "PrintToFileCommand.h"
 #include "AddBillCommand.h"
+#include "EditRecordCommand.h"
+#include "SetHouseNumberCommand.h"
+#include "SetStreetCommand.h"
+#include "SetBlockNumberCommand.h"
 
 
 
