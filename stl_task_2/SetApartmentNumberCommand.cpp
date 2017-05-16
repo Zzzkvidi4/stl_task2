@@ -24,6 +24,7 @@ void SetApartmentNumberCommand::Execute()
 			else {
 				bill.setApartmentNumber("");
 			}
+			isCorrect = true;
 		}
 		catch (std::exception e) {
 			print_message(e.what());

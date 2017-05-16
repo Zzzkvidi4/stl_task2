@@ -9,13 +9,22 @@ SetHouseNumberCommand::SetHouseNumberCommand(std::string title, Bill& bill): Com
 void SetHouseNumberCommand::Execute()
 {
 	std::string str;
+	bool isCorrect = false;
 	std::cout << "Текущее значение: " << bill.getHouseNumber() << std::endl;
 	std::cout << "Введите новый номер дома (пустая строка - отмена):" << std::endl;
-	std::getline(std::cin, str);
-	if (str == "") {
-		throw new std::exception("");
+	while (!isCorrect) {
+		std::getline(std::cin, str);
+		if (str == "") {
+			throw new std::exception("");
+		}
+		try {
+			bill.setHouseNumber(str);
+			isCorrect = true;
+		}
+		catch (std::exception e) {
+			print_message(e.what());
+		}
 	}
-	bill.setHouseNumber(str);
 }
 
 

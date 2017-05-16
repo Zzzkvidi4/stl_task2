@@ -13,10 +13,19 @@ void SetSurnameCommand::Execute()
 	std::cout << "Текущее значение: " << bill.getSurname() << std::endl;
 	std::cout << "Введите новую фамилию владельца (пустая строка - отмена):" << std::endl;
 	std::getline(std::cin, str);
-	if (str == "") {
-		throw new std::exception("");
+	bool isCorrect = false;
+	while (!isCorrect) {
+		if (str == "") {
+			throw new std::exception("");
+		}
+		try {
+			bill.setSurname(str);
+			isCorrect = true;
+		}
+		catch (std::exception e) {
+			print_message(e.what());
+		}
 	}
-	bill.setSurname(str);
 }
 
 SetSurnameCommand::~SetSurnameCommand()

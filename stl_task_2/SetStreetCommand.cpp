@@ -11,11 +11,20 @@ void SetStreetCommand::Execute()
 	std::string str;
 	std::cout << "Текущее значение: " << bill.getStreetName() << std::endl;
 	std::cout << "Введите новую улицу (пустая строка - отмена):" << std::endl;
-	std::getline(std::cin, str);
-	if (str == "") {
-		throw new std::exception("");
+	bool isCorrect = false;
+	while (!isCorrect) {
+		std::getline(std::cin, str);
+		if (str == "") {
+			throw new std::exception("");
+		}
+		try {
+			bill.setStreetName(str);
+			isCorrect = true;
+		}
+		catch (std::exception e) {
+			print_message(e.what());
+		}
 	}
-	bill.setStreetName(str);
 }
 
 
