@@ -54,13 +54,9 @@ public:
         }
 
         CommandList* sub_list = new CommandList();
-		sub_list->RegisterCommand(new ExitCommand("Выход."));
-        sub_list->RegisterCommand(new PrintToFileCommand<Bill>("Сохранить в файл.", result));
-        sub_list->RegisterCommand(new PrintCommand<Bill>("Вывести в консоль.", result));
-        sub_list->RegisterCommand(new RemoveCommand<Bill>("Удалить запись.", result));
-		sub_list->RegisterCommand(new EditRecordCommand("Редактировать запись.", result));
         choice = -1;
         while (choice != 0) {
+			FillSubListMenu(sub_list, result);
             sub_list->PrintTitles("Выберите один из пунктов меню для выборки:");
             getChoice(0, sub_list->Size(), choice);
             if (choice != 0) {
@@ -110,6 +106,17 @@ public:
         getChoice(0, 2, choice);
         return choice;
     }
+
+	void FillSubListMenu(CommandList* list, TemplateContainer<Bill>* cont) {
+		list->Clear();
+		list->RegisterCommand(new ExitCommand("Выход."));
+		if (cont->size() != 0) {
+			list->RegisterCommand(new PrintToFileCommand<Bill>("Сохранить в файл.", cont));
+			list->RegisterCommand(new PrintCommand<Bill>("Вывести в консоль.", cont));
+			list->RegisterCommand(new RemoveCommand<Bill>("Удалить запись.", cont));
+			list->RegisterCommand(new EditRecordCommand("Редактировать запись.", cont));
+		}
+	}
 
     ~SelectCommand()
     {
