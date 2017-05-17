@@ -9,8 +9,8 @@ EditRecordCommand::EditRecordCommand(std::string title, TemplateContainer<Bill>*
 void EditRecordCommand::Execute()
 {
 	int choice;
-	if ((choice = SelectBill()) == 0) {
-		throw new std::exception("");
+ 	if ((choice = SelectBill()) == 0) {
+		return;
 	}
 	Bill& bill = (*cont)[choice];
 	CommandList* record_list = new CommandList();
@@ -37,6 +37,7 @@ void EditRecordCommand::Execute()
 }
 
 int EditRecordCommand::SelectBill() {
+	std::cout << *cont << std::endl;
 	std::cout << "Выберите запись (0 - отмена):" << std::endl;
 	int choice = -1;
 	getChoice(0, cont->size(), choice);

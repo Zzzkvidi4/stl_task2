@@ -15,7 +15,7 @@ void SetPeniCommand::Execute()
 		std::cout << "¬ведите новый процент пени (пуста€ строка - отмена):" << std::endl;
 		std::getline(std::cin, str);
 		if (str == "") {
-			throw new std::exception("");
+			throw std::exception("");
 		}
 		try {
 			bill.setPeni(str);

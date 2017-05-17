@@ -15,7 +15,7 @@ void SetApartmentNumberCommand::Execute()
 		std::cout << "¬ведите новый номер квартиры (пуста€ строка - отмена, 0 - нет номера квартиры):" << std::endl;
 		std::getline(std::cin, str);
 		if (str == "") {
-			throw new std::exception("");
+			throw std::exception("");
 		}
 		try {
 			if (str != "0") {

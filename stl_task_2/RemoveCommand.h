@@ -15,6 +15,7 @@ public:
     }
 
     void Execute() {
+		std::cout << *cont << std::endl;
         std::cout << "¬ведите позицию дл€ удалени€ (0 - отмена):" << std::endl;
         int num;
         getChoice(0, cont->size(), num);

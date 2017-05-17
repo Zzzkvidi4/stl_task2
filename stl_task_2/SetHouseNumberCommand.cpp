@@ -15,7 +15,7 @@ void SetHouseNumberCommand::Execute()
 	while (!isCorrect) {
 		std::getline(std::cin, str);
 		if (str == "") {
-			throw new std::exception("");
+			throw  std::exception("");
 		}
 		try {
 			bill.setHouseNumber(str);

@@ -15,7 +15,7 @@ void SetDayCommand::Execute()
 		std::cout << "¬ведите новый день (пуста€ строка - отмена):" << std::endl;
 		std::getline(std::cin, str);
 		if (str == "") {
-			throw new std::exception("");
+			throw  std::exception("");
 		}
 		try {
 			bill.getDate().setDay(str);

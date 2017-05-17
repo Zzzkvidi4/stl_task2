@@ -16,7 +16,7 @@ void SetSurnameCommand::Execute()
 	bool isCorrect = false;
 	while (!isCorrect) {
 		if (str == "") {
-			throw new std::exception("");
+			throw std::exception("");
 		}
 		try {
 			bill.setSurname(str);

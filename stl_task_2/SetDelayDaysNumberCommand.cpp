@@ -15,7 +15,7 @@ void SetDelayDaysNumberCommand::Execute()
 		std::cout << "Введите новое количество дней задолжности (пустая строка - отмена):" << std::endl;
 		std::getline(std::cin, str);
 		if (str == "") {
-			throw new std::exception("");
+			throw  std::exception("");
 		}
 		try {
 			bill.setDelayNumber(str);

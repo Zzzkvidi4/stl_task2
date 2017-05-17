@@ -22,7 +22,8 @@ void CommandList::ExecuteCommand(int index)
 		system("cls");
 	}
 	catch (std::exception e) {
-		if (e.what() != "") {
+		std::string tmp = e.what();
+		if (tmp != "") {
 			print_message(e.what());
 			system("cls");
 		}

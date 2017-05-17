@@ -21,7 +21,7 @@ public:
             std::cout << "¬ведите улицу:" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.setStreetName(str);
@@ -37,7 +37,7 @@ public:
             std::cout << "¬ведите номер дома:" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.setHouseNumber(str);
@@ -53,7 +53,7 @@ public:
             std::cout << "¬ведите номер строени€ (пуста€ строка дл€ пропуска):" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.setBlockNumber(str);
@@ -69,7 +69,7 @@ public:
             std::cout << "¬ведите номер квартиры (пуста€ строка дл€ пропуска):" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.setApartmentNumber(str);
@@ -85,7 +85,7 @@ public:
             std::cout << "¬ведите год платежа:" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.getDate().setYear(str);
@@ -101,7 +101,7 @@ public:
             std::cout << "¬ведите мес€ц платежа:" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.getDate().setMonth(str);
@@ -117,7 +117,7 @@ public:
             std::cout << "¬ведите день платежа:" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.getDate().setDay(str);
@@ -133,7 +133,7 @@ public:
             std::cout << "¬ведите фамилию владельца:" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.setSurname(str);
@@ -149,7 +149,7 @@ public:
             std::cout << "¬ведите тип платежа:" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.setPaymentType(str);
@@ -165,7 +165,7 @@ public:
             std::cout << "¬ведите сумму платежа:" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.setPayment(str);
@@ -181,7 +181,7 @@ public:
             std::cout << "¬ведите процент пени:" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.setPeni(str);
@@ -197,7 +197,7 @@ public:
             std::cout << "¬ведите количество дней просрочки:" << std::endl;
             std::getline(std::cin, str);
             if (str == "abort") {
-                throw new std::exception("");
+				throw std::exception("");
             }
             try {
                 bill.setDelayNumber(str);

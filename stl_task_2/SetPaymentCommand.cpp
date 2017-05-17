@@ -15,7 +15,7 @@ void SetPaymentCommand::Execute()
 		std::cout << "¬ведите новую сумму платежа (пуста€ строка - отмена):" << std::endl;
 		std::getline(std::cin, str);
 		if (str == "") {
-			throw new std::exception("");
+			throw std::exception("");
 		}
 		try {
 			bill.setPayment(str);

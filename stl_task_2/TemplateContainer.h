@@ -145,9 +145,10 @@ public:
 			throw std::invalid_argument("Не удалось открыть файл на запись!");
 		}
 		std::ostream_iterator<T> out(fout, "\r\n");
-		for (TemplateContainer<T>::iterator iter = elements.begin(); iter != elements.end(); ++iter) {
+		for (TemplateContainer<T>::iterator iter = elements.begin(); iter != elements.end() - 1; ++iter) {
 			*out++ = *iter;
 		}
+		fout << *(elements.end() - 1);
 		fout.close();
 	}
 

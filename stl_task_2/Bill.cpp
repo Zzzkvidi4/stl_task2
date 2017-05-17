@@ -204,12 +204,18 @@ void Bill::setPayment(double payment)
 }
 
 void Bill::setPayment(std::string str) {
+	double buf;
+	dec::decimal<2> tmp = payment;
 	try {
-		this->payment = std::stod(str);
+		buf = std::stod(str);
 		dec::fromString(str, this->payment);
 	}
 	catch (std::exception e) {
 		throw std::invalid_argument("Сумма платежа не может быть не числом!");
+	}
+	if (buf < 0) {
+		payment = tmp;
+		throw std::invalid_argument("Сумма не может быть меньше нуля!");
 	}
 }
 
@@ -226,12 +232,18 @@ void Bill::setPeni(double peni)
 }
 
 void Bill::setPeni(std::string str) {
+	double buf;
+	dec::decimal<2> tmp = peni;
 	try {
-		this->peni = std::stod(str);
+		buf = std::stod(str);
 		dec::fromString(str, this->peni);
 	}
 	catch (std::exception e) {
 		throw std::invalid_argument("Пени не может быть не числом!");
+	}
+	if (buf < 0) {
+		peni = tmp;
+		throw std::invalid_argument("Процент пени не может быть меньше нуля!");
 	}
 }
 
@@ -249,12 +261,18 @@ void Bill::setDelayNumber(int delay_number)
 }
 
 void Bill::setDelayNumber(std::string str) {
+	int tmp = delay_number;
 	try {
 		this->delay_number = std::stoi(str);
 		hasPeni = delay_number > 0;
 	}
 	catch (std::exception e) {
+
 		throw std::invalid_argument("Количество дней просрочки не может быть не числом!");
+	}
+	if (delay_number < 0) {
+		delay_number = tmp;
+		throw std::exception("Количество дней не должно быть меньше нуля!");
 	}
 }
 
@@ -313,6 +331,7 @@ std::ostream& operator<<(std::ostream & cout, Bill bill)
 std::istream& operator>>(std::istream & cin, Bill &bill)
 {
 	std::string buf;
+	double buffer;
 	std::getline(cin, buf);
 	size_t position = buf.find(':');
 	if (position == std::string::npos) {
@@ -362,10 +381,14 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	}
 	buf = buf.substr(position + 2);
 	try {
+		buffer = std::stod(buf);
 		dec::fromString(buf, bill.payment);
 	}
 	catch (std::invalid_argument e) {
 		throw std::invalid_argument("Сумма платежа не может быть не числом!");
+	}
+	if (buffer < 0) {
+		throw std::invalid_argument("Сумма платежа не может быть отрицательной!");
 	}
 
 	std::getline(cin, buf);
@@ -375,12 +398,16 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	}
 	buf = buf.substr(position + 2);
 	try {
+		buffer = std::stod(buf);
 		dec::fromString(buf, bill.peni);
 	}
 	catch (std::invalid_argument e) {
 		throw std::invalid_argument("Процент пени не может быть не числом!");
 	}
 
+	if (buffer < 0) {
+		throw std::invalid_argument("Сумма платежа не может быть отрицательной!");
+	}
 	std::getline(cin, buf);
 	position = buf.find(':');
 	if (position == std::string::npos) {
@@ -392,6 +419,9 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	}
 	catch (std::invalid_argument e) {
 		throw std::invalid_argument("Количество дней задолжности не может быть не числом!");
+	}
+	if (bill.delay_number < 0) {
+		throw std::invalid_argument("Количество дней задолжности не может быть отрицательным!");
 	}
 
 	std::getline(cin, buf);
