@@ -333,53 +333,53 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	std::string buf;
 	double buffer;
 	std::getline(cin, buf);
-	size_t position = buf.find(':');
+	size_t position = buf.find("Àäğåñ:");
 	if (position == std::string::npos) {
 		throw std::invalid_argument("Ââîä íåêîğğåêòåí!");
 	}
-	buf = buf.substr(position + 2);
+	buf = buf.substr(position + 7);
 	if (!Address::StrToAddress(buf, bill.address)) {
 		throw std::invalid_argument("Íåâîçìîæíî ïğåîáğàçîâàòü ñòğîêó ê àäğåñó!");
 	}
 
 	std::getline(cin, buf);
-	position = buf.find(':');
+	position = buf.find("Âëàäåëåö:");
 	if (position == std::string::npos) {
 		throw std::invalid_argument("Ââîä íåêîğğåêòåí!");
 	}
-	buf = buf.substr(position + 2);
+	buf = buf.substr(position + 10);
 	if (buf == "") {
 		throw std::invalid_argument("Ôàìèëèÿ âëàäåëüöà íå ìîæåò áûòü ïóñòîé ñòğîêîé!");
 	}
 	bill.surname = buf;
 
 	std::getline(cin, buf);
-	position = buf.find(':');
+	position = buf.find("Äàòà:");
 	if (position == std::string::npos) {
 		throw std::invalid_argument("Ââîä íåêîğğåêòåí!");
 	}
-	buf = buf.substr(position + 2);
+	buf = buf.substr(position + 6);
 	if (!Date::StrToDate(buf, bill.date)) {
 		throw std::invalid_argument("Íåâîçìîæíî ïğåîáğàçîâàòü ñòğîêó ê äàòå!");
 	}
 
 	std::getline(cin, buf);
-	position = buf.find(':');
+	position = buf.find("Òèï ïëàòåæà:");
 	if (position == std::string::npos) {
 		throw std::invalid_argument("Ââîä íåêîğğåêòåí!");
 	}
-	buf = buf.substr(position + 2);
+	buf = buf.substr(position + 13);
 	if (buf == "") {
 		throw std::invalid_argument("Òèï ïëàòåæà íå ìîæåò áûòü ïóñòîé ñòğîêîé!");
 	}
 	bill.payment_type = buf;
 
 	std::getline(cin, buf);
-	position = buf.find(':');
+	position = buf.find("Ñóììà ïëàòåæà:");
 	if (position == std::string::npos) {
 		throw std::invalid_argument("Ââîä íåêîğğåêòåí!");
 	}
-	buf = buf.substr(position + 2);
+	buf = buf.substr(position + 15);
 	try {
 		buffer = std::stod(buf);
 		dec::fromString(buf, bill.payment);
@@ -392,11 +392,11 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	}
 
 	std::getline(cin, buf);
-	position = buf.find(':');
+	position = buf.find("Ïåíè:");
 	if (position == std::string::npos) {
 		throw std::invalid_argument("Ââîä íåêîğğåêòåí!");
 	}
-	buf = buf.substr(position + 2);
+	buf = buf.substr(position + 6);
 	try {
 		buffer = std::stod(buf);
 		dec::fromString(buf, bill.peni);
@@ -409,11 +409,11 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 		throw std::invalid_argument("Ñóììà ïëàòåæà íå ìîæåò áûòü îòğèöàòåëüíîé!");
 	}
 	std::getline(cin, buf);
-	position = buf.find(':');
+	position = buf.find("Äíåé çàäîëæíîñòè:");
 	if (position == std::string::npos) {
 		throw std::invalid_argument("Ââîä íåêîğğåêòåí!");
 	}
-	buf = buf.substr(position + 2);
+	buf = buf.substr(position + 18);
 	try {
 		bill.delay_number = std::stoi(buf);
 	}
@@ -425,10 +425,6 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	}
 
 	std::getline(cin, buf);
-	position = buf.find(':');
-	if (position == std::string::npos) {
-		throw std::invalid_argument("Ââîä íåêîğğåêòåí!");
-	}
 	bill.hasPeni = bill.delay_number > 0;
 	return cin;
 }
