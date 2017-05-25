@@ -1,6 +1,7 @@
 #pragma once
 #include "Command.h"
 #include "TemplateContainer.h"
+#include "ContainerUtils.h"
 
 template <typename T>
 class PrintToFileCommand: public Command
@@ -20,7 +21,7 @@ public:
         if (file_name != "") {
             try {
 				std::ofstream fout(file_name);
-                cont->print_to_file(fout);
+                ContainerUtils<Bill>::print_to_file(fout, *cont);
             }
             catch (std::exception e) {
                 print_message(e.what());

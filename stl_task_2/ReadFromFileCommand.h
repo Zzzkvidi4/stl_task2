@@ -1,6 +1,7 @@
 #pragma once
 #include "Command.h"
 #include "TemplateContainer.h"
+#include "ContainerUtils.h"
 
 template<typename T>
 class ReadFromFileCommand: public Command
@@ -20,7 +21,7 @@ public:
             cont->clear();
             try {
 				std::ifstream fin(file_name);
-                if (!cont->read_from_file(fin)) {
+                if (!ContainerUtils<Bill>::read_from_file(fin, *cont)) {
                     print_message("Внимание, содержимое файла может быть отражено некорректно!");
                 }
             }

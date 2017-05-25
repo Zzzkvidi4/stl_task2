@@ -1,6 +1,7 @@
 #pragma once
 #include "Command.h"
 #include "TemplateContainer.h"
+#include "ContainerUtils.h"
 
 template<typename T>
 class PrintCommand: public Command
@@ -18,7 +19,7 @@ public:
         if (cont->size() == 0) {
             print_message("Список счетов пуст!");
         } else {
-            std::cout << *cont << std::endl;
+			ContainerUtils<Bill>::print_to_console(std::cout, *cont);
             system("pause");
         }
     }

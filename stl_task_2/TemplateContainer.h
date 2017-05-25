@@ -119,65 +119,8 @@ public:
 	}
 
 	//сортировка по критерию
-	void SortElemsBy(std::function<bool(T,T)> comp) {
+	void SortElemsBy(std::function<bool(T, T)> comp) {
 		std::sort(elements.begin(), elements.end(), comp);
-	}
-
-	//вывод
-	friend std::ostream& operator<<(std::ostream& cout, TemplateContainer<T> cont) {
-		if (cont.size() == 0) {
-			cout << "Записи не обнаружены!" << std::endl;
-			return cout;
-		}
-		int i = 1;
-		std::ostream_iterator<T> cout_it(cout, "\r\n");
-		for (TemplateContainer<T>::iterator iter = cont.begin(); iter != cont.end(); ++iter, ++i) {
-			cout << "\r\nЗапись № " << std::to_string(i) << std::endl;
-			*cout_it++ = *iter;
-		}
-		return cout;
-	}
-
-	//вывод в файл
-	void print_to_file(std::ofstream& fout) {
-		if (!fout.is_open()) {
-			throw std::invalid_argument("Не удалось открыть файл на запись!");
-		}
-		std::ostream_iterator<T> out(fout, "\r\n");
-		for (TemplateContainer<T>::iterator iter = elements.begin(); iter != elements.end() - 1; ++iter) {
-			*out++ = *iter;
-		}
-		fout << *(elements.end() - 1);
-		fout.close();
-	}
-
-	//чтение из файла
-	bool read_from_file(std::ifstream& fin) {
-		if (!fin.is_open()) {
-			throw std::invalid_argument("Не удалось открыть файл для чтения!");
-		}
-
-		std::istream_iterator<T> in(fin);
-		T buf;
-		bool result = true;
-        bool is_correct = true;
-		while (!fin.eof()) {
-			try {
-                if (is_correct) {
-                    Add(*in);
-                }
-                is_correct = true;
-                in++;
-			}
-			catch (std::exception e) {
-				result = false;
-                is_correct = false;
-			}
-		}
-        if (is_correct) {
-            Add(*in);
-        }
-		return result;
 	}
 
 	~TemplateContainer() {

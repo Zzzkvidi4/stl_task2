@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "EditRecordCommand.h"
+#include "ContainerUtils.h"
 
 EditRecordCommand::EditRecordCommand(std::string title, TemplateContainer<Bill>* cont): Command(title)
 {
@@ -37,7 +38,7 @@ void EditRecordCommand::Execute()
 }
 
 int EditRecordCommand::SelectBill() {
-	std::cout << *cont << std::endl;
+	ContainerUtils<Bill>::print_to_console(std::cout, *cont);
 	std::cout << "Выберите запись (0 - отмена):" << std::endl;
 	int choice = -1;
 	getChoice(0, cont->size(), choice);

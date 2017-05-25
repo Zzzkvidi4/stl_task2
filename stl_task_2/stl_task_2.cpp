@@ -27,7 +27,7 @@ void FillMenu(TemplateContainer<Bill>* cont, CommandList* list) {
 	list->RegisterCommand(new AddBillCommand("Добавление записи.", cont));
 	if (cont->size() != 0) {
 		list->RegisterCommand(new EditRecordCommand("Редактирование записи.", cont));
-		list->RegisterCommand(new RemoveCommand<Bill>("Удаление записи.", cont));
+		list->RegisterCommand(new RemoveCommand("Удаление записи.", cont));
 		list->RegisterCommand(new SelectCommand("Выборка записей.", cont));
 	}
 }

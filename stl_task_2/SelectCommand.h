@@ -113,7 +113,7 @@ public:
 		if (cont->size() != 0) {
 			list->RegisterCommand(new PrintToFileCommand<Bill>("Сохранить в файл.", cont));
 			list->RegisterCommand(new PrintCommand<Bill>("Вывести в консоль.", cont));
-			list->RegisterCommand(new RemoveCommand<Bill>("Удалить запись.", cont));
+			list->RegisterCommand(new RemoveCommand("Удалить запись.", cont));
 			list->RegisterCommand(new EditRecordCommand("Редактировать запись.", cont));
 		}
 	}

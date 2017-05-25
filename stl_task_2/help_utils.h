@@ -1,4 +1,5 @@
 #pragma once
+#include "stdafx.h"
 
 //функция для вывода сообщений
 void print_message(std::string msg);
@@ -10,3 +11,4 @@ void getChoice(int min, int max, int& choice_number);
 void getIntGreater(int min, int& value);
 
 bool input_query(std::string str);
+

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "help_utils.h"
+#include "TemplateContainer.h"
 
 //функция для вывода сообщений
 void print_message(std::string msg)
