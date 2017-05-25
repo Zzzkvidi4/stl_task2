@@ -19,7 +19,8 @@ public:
         if (file_name != "") {
             cont->clear();
             try {
-                if (!cont->read_from_file(file_name)) {
+				std::ifstream fin(file_name);
+                if (!cont->read_from_file(fin)) {
                     print_message("Внимание, содержимое файла может быть отражено некорректно!");
                 }
             }

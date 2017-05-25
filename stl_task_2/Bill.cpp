@@ -324,7 +324,7 @@ std::ostream& operator<<(std::ostream & cout, Bill bill)
 	cout << "Адрес: " << bill.address << std::endl << "Владелец: " << bill.surname << std::endl 
 			<< "Дата: " << bill.date << std::endl << "Тип платежа: " << bill.payment_type << std::endl 
 			<< "Сумма платежа: " << dec::toString(bill.payment) << std::endl << "Пени: " << dec::toString(bill.peni) << std::endl 
-			<< "Дней задолжности: " << bill.delay_number << std::endl << "Долг: " << bill.countPeni();
+			<< "Дней задолжности: " << bill.delay_number << std::endl << "Долг: " << bill.countPeni() + bill.getPayment();
 	return cout;
 }
 

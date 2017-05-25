@@ -19,7 +19,8 @@ public:
         std::getline(std::cin, file_name);
         if (file_name != "") {
             try {
-                cont->print_to_file(file_name);
+				std::ofstream fout(file_name);
+                cont->print_to_file(fout);
             }
             catch (std::exception e) {
                 print_message(e.what());

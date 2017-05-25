@@ -139,8 +139,7 @@ public:
 	}
 
 	//вывод в файл
-	void print_to_file(std::string file_name) {
-		std::ofstream fout(file_name);
+	void print_to_file(std::ofstream& fout) {
 		if (!fout.is_open()) {
 			throw std::invalid_argument("Не удалось открыть файл на запись!");
 		}
@@ -153,8 +152,7 @@ public:
 	}
 
 	//чтение из файла
-	bool read_from_file(std::string file_name) {
-		std::ifstream fin(file_name);
+	bool read_from_file(std::ifstream& fin) {
 		if (!fin.is_open()) {
 			throw std::invalid_argument("Не удалось открыть файл для чтения!");
 		}

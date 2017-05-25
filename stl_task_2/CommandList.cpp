@@ -24,7 +24,7 @@ void CommandList::ExecuteCommand(int index)
 	catch (std::exception e) {
 		std::string tmp = e.what();
 		if (tmp != "") {
-			print_message(e.what());
+			print_message(tmp);
 			system("cls");
 		}
 	}
