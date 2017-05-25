@@ -8,14 +8,14 @@ class TemplateContainer{
 private:
 	std::vector<T> elements;
 public:
-	typedef typename std::vector<T>::iterator iterator;
+	typedef typename std::vector<T>::const_iterator iterator;
 
 	iterator begin() {
-		return elements.begin();
+		return elements.cbegin();
 	}
 
 	iterator end() {
-		return elements.end();
+		return elements.cend();
 	}
 
 	//конструктор
