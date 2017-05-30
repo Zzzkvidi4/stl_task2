@@ -23,7 +23,7 @@ public:
 		elements = std::vector<T>();
 	};
 
-	std::vector<T>& Elems() {
+	std::vector<T> Elems() {
 		return elements;
 	}
 
@@ -54,10 +54,18 @@ public:
 	//выборка элементов по критерию
 	TemplateContainer<T>* GetElemsIf(BaseFunctor<T>* func) {
 		TemplateContainer<T>* result = new TemplateContainer<T>();
-		std::copy_if(elements.begin(), elements.end(), std::back_inserter(result->elements), std::bind1st(std::mem_fun(&BaseFunctor<T>::operator()), func));
+		std::copy_if(elements.begin(), elements.end(), std::back_inserter(result->elements),
+			std::bind1st(std::mem_fun(&BaseFunctor<T>::operator()), func));
 		for (TemplateContainer<T>::iterator it = result->begin(); it != result->end(); ++it) {
 			elements.erase(std::remove(elements.begin(), elements.end(), *it));
 		}
+		return result;
+	}
+
+	TemplateContainer<T>* Subset(BaseFunctor<T>* func) {
+		TemplateContainer<T>* result = new TemplateContainer<T>();
+		std::copy_if(elements.begin(), elements.end(), std::back_inserter(result->elements),
+			std::bind1st(std::mem_fun(&BaseFunctor<T>::operator()), func));
 		return result;
 	}
 
@@ -68,15 +76,34 @@ public:
 		SortElemsBy(comp);
 		int start = BinarySearch(comp, std::bind1st(std::mem_fun(&BaseFunctor<T>::operator()), func), func->GetValue());
 		if (start != -1) {
+			for (TemplateContainer<T>::iterator it = begin() + start + 1; (it != end()) && (func->operator()(*it)); ++it) {
+				result->Add(*it);
+			}
+			for (TemplateContainer<T>::iterator it = begin() + start; (it != begin()) && (func->operator()(*it)); --it) {
+				result->Add(*it);
+			}
+			if ((start != 0) && (func->operator()(*begin()))) {
+				result->Add(*begin());
+			}
+		}
+		for (TemplateContainer<T>::iterator it = result->begin(); it != result->end(); ++it) {
+			elements.erase(std::remove(elements.begin(), elements.end(), *it));
+		}
+		return result;
+	}
+
+	TemplateContainer<T>* SubsetBinary(BaseFunctor<T>* func) {
+		TemplateContainer<T>* result = new TemplateContainer<T>();
+		std::function<bool(T, T)> comp = func->GetComparator();
+		SortElemsBy(comp);
+		int start = BinarySearch(comp, std::bind1st(std::mem_fun(&BaseFunctor<T>::operator()), func), func->GetValue());
+		if (start != -1) {
 			for (TemplateContainer<T>::iterator it = begin() + start; (it != end()) && (func->operator()(*it)); ++it) {
 				result->Add(*it);
 			}
 			for (TemplateContainer<T>::iterator it = begin() + start - 1; (it != begin()) && (func->operator()(*it)); --it) {
 				result->Add(*it);
 			}
-		}
-		for (TemplateContainer<T>::iterator it = result->begin(); it != result->end(); ++it) {
-			elements.erase(std::remove(elements.begin(), elements.end(), *it));
 		}
 		return result;
 	}
