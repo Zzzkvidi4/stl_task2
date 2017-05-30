@@ -33,6 +33,8 @@ void getChoice(int min, int max, int& choice_number) {
 	}
 }
 
+
+
 void getIntGreater(int min, int & value) {
 	bool ok = false;
 	value = INT_MIN;
@@ -64,4 +66,36 @@ bool input_query(std::string query) {
 		return true;
 	}
 	return false;
+}
+
+bool checkInt(std::string str) {
+	return false;
+}
+
+bool checkInt(std::string str) {
+	if (str.length == 0) {
+		return false;
+	}
+	size_t i = 0;
+	while ((i < str.length) && ((str[i] == ' ') || (str[i] == '	'))) {
+		++i;
+	}
+	if (i >= str.length) {
+		return false;
+	}
+	int sign = 1;
+	switch (str[i]) {
+		case '-': {
+			sign = -1;
+			++i;
+		}
+	}
+
+	size_t j = i;
+	bool result = j < str.length;
+	while ((j < str.length) && (result)) {
+		result = (str[j] > '0') && (str[j] < '9');
+		++j;
+	}
+	return j == str.length;
 }

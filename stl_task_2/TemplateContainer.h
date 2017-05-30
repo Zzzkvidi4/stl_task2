@@ -23,10 +23,6 @@ public:
 		elements = std::vector<T>();
 	};
 
-	std::vector<T> Elems() {
-		return elements;
-	}
-
 	//размер контейнера
 	size_t size() {
 		return elements.size();

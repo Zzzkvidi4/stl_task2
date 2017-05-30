@@ -12,3 +12,7 @@ void getIntGreater(int min, int& value);
 
 bool input_query(std::string str);
 
+bool checkInt(std::string str);
+
+bool checkDouble(std::string str);
+
