@@ -30,6 +30,9 @@ public:
 
 	void setHouseNumber(std::string buf) {
 		try {
+			if (!checkInt(buf)) {
+				throw std::invalid_argument("");
+			}
 			house_number = std::stoi(buf);
 			if (house_number < 1) {
 				throw std::out_of_range("Ќомер дома должен быть больше нул€!");
@@ -56,6 +59,9 @@ public:
 			block_number = 0;
 		} else {
 			try {
+				if (!checkInt(buf)) {
+					throw std::invalid_argument("");
+				}
 				block_number = std::stoi(buf);
 				if (block_number < 0) {
 					throw std::out_of_range("Ќомер строени€ должен быть больше нул€!");
@@ -76,6 +82,9 @@ public:
 			apartment_number = 0;
 		} else {
 			try {
+				if (!checkInt(buf)) {
+					throw std::invalid_argument("");
+				}
 				apartment_number = std::stoi(buf);
 				if (apartment_number < 0) {
 					throw std::out_of_range("Ќомер квартиры должен быть больше нул€!");

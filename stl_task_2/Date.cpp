@@ -41,6 +41,9 @@ bool Date::StrToDate(std::string str, Date & date) {
 	}
 	std::string buf = str.substr(0, position);
 	try {
+		if (!checkInt(buf)) {
+			throw std::invalid_argument("");
+		}
 		date.day = std::stoi(buf);
 	}
 	catch (std::exception e) {
@@ -54,6 +57,9 @@ bool Date::StrToDate(std::string str, Date & date) {
 	}
 	buf = str.substr(0, position);
 	try {
+		if (!checkInt(buf)) {
+			throw std::invalid_argument("");
+		}
 		date.month = std::stoi(buf);
 	}
 	catch (std::exception e) {
@@ -61,6 +67,9 @@ bool Date::StrToDate(std::string str, Date & date) {
 	}
 	str = str.substr(position + 1);
 	try {
+		if (!checkInt(str)) {
+			throw std::invalid_argument("");
+		}
 		date.year = std::stoi(str);
 	}
 	catch (std::exception e) {
@@ -117,6 +126,9 @@ Date::~Date() {
 void Date::setYear(std::string buf) {
     int tmp = year;
 	try {
+		if (!checkInt(buf)) {
+			throw std::invalid_argument("");
+		}
 		year = std::stoi(buf);
 	}
 	catch (std::invalid_argument e) {
@@ -138,6 +150,9 @@ int Date::getYear() {
 void Date::setMonth(std::string buf) {
     int tmp = month;
 	try {
+		if (!checkInt(buf)) {
+			throw std::invalid_argument("");
+		}
 		month = std::stoi(buf);
 	}
 	catch (std::invalid_argument e) {
@@ -159,6 +174,9 @@ int Date::getMonth() {
 void Date::setDay(std::string buf) {
     int tmp = day;
 	try {
+		if (!checkInt(buf)) {
+			throw std::invalid_argument("");
+		}
 		day = std::stoi(buf);
 	}
 	catch (std::invalid_argument e) {
@@ -187,6 +205,9 @@ std::istream& operator>>(std::istream& cin, Date& date) {
 	std::cout << "¬ведите мес€ц:" << std::endl;
 	std::getline(cin, buf);
 	try {
+		if (!checkInt(buf)) {
+			throw std::invalid_argument("");
+		}
 		date.month = std::stoi(buf);
 		if ((date.month < 1) || (date.month > 12)) {
 			throw std::out_of_range("ћес€ц должен быть числом от 1 до 12!");
@@ -199,6 +220,9 @@ std::istream& operator>>(std::istream& cin, Date& date) {
 	std::cout << "ƒень:" << std::endl;
 	std::getline(cin, buf);
 	try {
+		if (!checkInt(buf)) {
+			throw std::invalid_argument("");
+		}
 		date.day = std::stoi(buf);
 		int max_day = Date::max_day_number(date.year, date.month);
 		if ((date.day < 1) || (date.day > max_day)) {

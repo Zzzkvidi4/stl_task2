@@ -25,6 +25,9 @@ void HouseNumberFunctor::Initialize()
             throw new std::exception("");
         }
         try {
+			if (!checkInt(str)) {
+				throw std::invalid_argument("");
+			}
             house_number = std::stoi(str);
             if (house_number <= 0) {
                 house_number = -1;

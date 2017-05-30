@@ -24,6 +24,9 @@ void ApartmentNumberFunctor::Initialize()
             throw new std::exception("");
         }
         try {
+			if (!checkInt(str)) {
+				throw std::invalid_argument("");
+			}
             apartment_number = std::stoi(str);
             if (apartment_number < 0) {
                 apartment_number = -1;

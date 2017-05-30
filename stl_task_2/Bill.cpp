@@ -73,6 +73,9 @@ bool Bill::StrToBill(std::string str, Bill& bill) {
 	}
 	buf = str.substr(0, position);
 	try {
+		if (!checkInt(buf)) {
+			throw std::invalid_argument("");
+		}
 		bill.payment = std::stoi(buf);
 	}
 	catch (std::exception e) {
@@ -86,6 +89,9 @@ bool Bill::StrToBill(std::string str, Bill& bill) {
 	}
 	buf = str.substr(0, position);
 	try {
+		if (!checkDouble(buf)) {
+			throw std::invalid_argument("");
+		}
 		bill.peni = std::stod(buf);
 	}
 	catch (std::exception e) {
@@ -94,6 +100,9 @@ bool Bill::StrToBill(std::string str, Bill& bill) {
 	str = str.substr(position + 1);
 
 	try {
+		if (!checkInt(buf)) {
+			throw std::invalid_argument("");
+		}
 		bill.delay_number = std::stoi(buf);
 	}
 	catch (std::exception e) {
@@ -207,6 +216,9 @@ void Bill::setPayment(std::string str) {
 	double buf;
 	dec::decimal<2> tmp = payment;
 	try {
+		if (!checkDouble(str)) {
+			throw std::invalid_argument("");
+		}
 		buf = std::stod(str);
 		dec::fromString(str, this->payment);
 	}
@@ -235,6 +247,9 @@ void Bill::setPeni(std::string str) {
 	double buf;
 	dec::decimal<2> tmp = peni;
 	try {
+		if (!checkDouble(str)) {
+			throw std::invalid_argument("");
+		}
 		buf = std::stod(str);
 		dec::fromString(str, this->peni);
 	}
@@ -263,6 +278,9 @@ void Bill::setDelayNumber(int delay_number)
 void Bill::setDelayNumber(std::string str) {
 	int tmp = delay_number;
 	try {
+		if (!checkInt(str)) {
+			throw std::invalid_argument("");
+		}
 		this->delay_number = std::stoi(str);
 		hasPeni = delay_number > 0;
 	}
@@ -381,6 +399,9 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	}
 	buf = buf.substr(position + 15);
 	try {
+		if (!checkDouble(buf)) {
+			throw std::invalid_argument("");
+		}
 		buffer = std::stod(buf);
 		dec::fromString(buf, bill.payment);
 	}
@@ -398,6 +419,9 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	}
 	buf = buf.substr(position + 6);
 	try {
+		if (!checkDouble(buf)) {
+			throw std::invalid_argument("");
+		}
 		buffer = std::stod(buf);
 		dec::fromString(buf, bill.peni);
 	}
@@ -415,6 +439,9 @@ std::istream& operator>>(std::istream & cin, Bill &bill)
 	}
 	buf = buf.substr(position + 18);
 	try {
+		if (!checkInt(buf)) {
+			throw std::invalid_argument("");
+		}
 		bill.delay_number = std::stoi(buf);
 	}
 	catch (std::invalid_argument e) {
