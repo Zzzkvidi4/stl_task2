@@ -21,7 +21,7 @@ void DateFunctor::Initialize()
         std::cout << "¬ведите год платежа (abort - отмена):" << std::endl;
         std::getline(std::cin, str);
         if (str == "abort") {
-            throw new std::exception("");
+            throw std::exception("");
         }
         try {
             date.setYear(str);
@@ -37,7 +37,7 @@ void DateFunctor::Initialize()
         std::cout << "¬ведите мес€ц платежа (abort - отмена):" << std::endl;
         std::getline(std::cin, str);
         if (str == "abort") {
-            throw new std::exception("");
+            throw std::exception("");
         }
         try {
             date.setMonth(str);
@@ -53,7 +53,7 @@ void DateFunctor::Initialize()
         std::cout << "¬ведите день платежа (abort - отмена):" << std::endl;
         std::getline(std::cin, str);
         if (str == "abort") {
-            throw new std::exception("");
+            throw std::exception("");
         }
         try {
             date.setDay(str);

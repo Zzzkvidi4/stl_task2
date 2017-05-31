@@ -18,6 +18,14 @@ public:
 		return elements.cend();
 	}
 
+	iterator rbegin() {
+		return elements.crbegin();
+	}
+
+	iterator rend() {
+		return elements.crend();
+	}
+
 	//конструктор
 	TemplateContainer<T>() {
 		elements = std::vector<T>();
@@ -75,11 +83,8 @@ public:
 			for (TemplateContainer<T>::iterator it = begin() + start + 1; (it != end()) && (func->operator()(*it)); ++it) {
 				result->Add(*it);
 			}
-			for (TemplateContainer<T>::iterator it = begin() + start; (it != begin()) && (func->operator()(*it)); --it) {
+			for (std::reverse_iterator<std::vector<T>::iterator> it = elements.rbegin() + elements.size() - 1 - start; (it != elements.rend()) && (func->operator()(*it)); ++it) {
 				result->Add(*it);
-			}
-			if ((start != 0) && (func->operator()(*begin()))) {
-				result->Add(*begin());
 			}
 		}
 		for (TemplateContainer<T>::iterator it = result->begin(); it != result->end(); ++it) {
@@ -94,10 +99,10 @@ public:
 		SortElemsBy(comp);
 		int start = BinarySearch(comp, std::bind1st(std::mem_fun(&BaseFunctor<T>::operator()), func), func->GetValue());
 		if (start != -1) {
-			for (TemplateContainer<T>::iterator it = begin() + start; (it != end()) && (func->operator()(*it)); ++it) {
+			for (TemplateContainer<T>::iterator it = begin() + start + 1; (it != end()) && (func->operator()(*it)); ++it) {
 				result->Add(*it);
 			}
-			for (TemplateContainer<T>::iterator it = begin() + start - 1; (it != begin()) && (func->operator()(*it)); --it) {
+			for (std::reverse_iterator<std::vector<T>::iterator> it = elements.rbegin() + elements.size() - 1 - start; (it != elements.rend()) && (func->operator()(*it)); ++it) {
 				result->Add(*it);
 			}
 		}
