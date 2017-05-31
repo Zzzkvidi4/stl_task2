@@ -10,6 +10,7 @@ public:
 			return cout;
 		}
 		int i = 1;
+		cout << "Количество записей: " << cont.size() << std::endl;
 		std::ostream_iterator<T> cout_it(cout, "\r\n");
 		for (TemplateContainer<T>::iterator iter = cont.begin(); iter != cont.end(); ++iter, ++i) {
 			cout << "\r\nЗапись № " << std::to_string(i) << std::endl;
